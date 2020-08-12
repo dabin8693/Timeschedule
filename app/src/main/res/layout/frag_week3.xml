@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="30sp">
+                <TextView
+                    android:id="@+id/week3_start_t"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="시작시간"></TextView>
+                <Spinner
+                    android:id="@+id/week_start_time_spinner3"
+                    android:layout_toRightOf="@+id/week3_start_t"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </Spinner>
+                <TextView
+                    android:id="@+id/week3_week_t"
+                    android:layout_toRightOf="@+id/week_start_time_spinner3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="요일설정"></TextView>
+                <Spinner
+                    android:id="@+id/week_week_spinner3"
+                    android:layout_toRightOf="@+id/week3_week_t"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </Spinner>
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45sp">
+                <TextView
+                    android:id="@+id/week3_end_t"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="종료시간"></TextView>
+                <Spinner
+                    android:id="@+id/week_end_time_spinner3"
+                    android:layout_toRightOf="@+id/week3_end_t"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </Spinner>
+                <Button
+                    android:id="@+id/week_search_button"
+                    android:layout_toLeftOf="@+id/week_look3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="0dp"
+                    android:textSize="10sp"
+                    android:text="조회"></Button>
+                <TextView
+                    android:id="@+id/week_look3"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="폰사용기록보러가기"
+                    android:textStyle="bold">
+
+                </TextView>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/week_week_recycle3"
+                android:layout_width="match_parent"
+                android:background="@drawable/grid_border"
+                android:layout_height="100px">
+
+            </androidx.recyclerview.widget.RecyclerView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/week_day_recycle3"
+                android:layout_width="match_parent"
+                android:background="@drawable/grid_border"
+                android:layout_height="100px">
+
+            </androidx.recyclerview.widget.RecyclerView>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <RelativeLayout
+                    android:id="@+id/week_linear3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/week_time_recycle3"
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:background="@drawable/grid_border">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_toRightOf="@id/week_time_recycle3"
+                        android:id="@+id/week_monday_recycle3"
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:background="@drawable/grid_border">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_toRightOf="@+id/week_monday_recycle3"
+                        android:id="@+id/week_tuesday_recycle3"
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:background="@drawable/grid_border">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_toRightOf="@+id/week_tuesday_recycle3"
+                        android:id="@+id/week_wednesday_recycle3"
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:background="@drawable/grid_border">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_toRightOf="@+id/week_wednesday_recycle3"
+                        android:id="@+id/week_thursday_recycle3"
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:background="@drawable/grid_border">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_toRightOf="@+id/week_thursday_recycle3"
+                        android:id="@+id/week_friday_recycle3"
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:background="@drawable/grid_border">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_toRightOf="@+id/week_friday_recycle3"
+                        android:id="@+id/week_saturday_recycle3"
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:background="@drawable/grid_border">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_toRightOf="@+id/week_saturday_recycle3"
+                        android:id="@+id/week_sunday_recycle3"
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:background="@drawable/grid_border">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+                </RelativeLayout>
+            </ScrollView>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

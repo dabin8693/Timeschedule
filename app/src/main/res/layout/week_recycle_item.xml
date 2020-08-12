@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/grid_border"
+    android:gravity="center"
+    android:orientation="horizontal">
+<!--weeK_day,week_week 같은 높이고정인 호라이즌에서 쓰인다-->
+    <TextView
+        android:id="@+id/recycle_items"
+        android:gravity="center"
+        android:minHeight="150px"
+        android:layout_width="wrap_content"
+        android:layout_height="100px"
+        android:ellipsize="end"
+        android:text="10:00~12:00"></TextView>
+</LinearLayout>

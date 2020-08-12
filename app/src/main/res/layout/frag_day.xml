@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20px"
+            android:orientation="vertical"
+            android:background="@color/cardview_light_background">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20px"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/day_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:text="2020.08.06 목"></TextView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:textSize="20sp"
+                        android:text="날씨"></TextView>
+                </RelativeLayout>
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <RelativeLayout
+                    android:id="@+id/day_recycle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <!--리사이클러뷰 1:3:1:3 전체가로 넓이/8      -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_weight="1"
+                    android:id="@+id/day_moring_time_recycle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                </androidx.recyclerview.widget.RecyclerView>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_toRightOf="@id/day_moring_time_recycle"
+                        android:id="@+id/day_moring_recycle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_toRightOf="@id/day_moring_recycle"
+                        android:id="@+id/day_afternoon_time_recycle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_toRightOf="@id/day_afternoon_time_recycle"
+                        android:id="@+id/day_afternoon_recycle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+                </RelativeLayout>
+                </ScrollView>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

@@ -468,8 +468,18 @@ public class frag2_week extends Fragment {
                 intent.putExtra("type", time_type1[time]);
                 intent.putExtra("body", time_body1[time]);
                 intent.putExtra("week", 1);
-                intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 1)));//2020.08.11//터치한 위치 날짜
-                intent.putExtra("day2", getDate3((index-1500) * 7 - (getWeek() - 1)));//20200811//터치한 위치 날짜
+                Log.d("월터치날짜검사", getDate((index-1500) * 7 - (getWeek() - 1)));
+                Log.d("월터치날짜검사변수",Integer.toString(-(getWeek()-1)));//0보다 작으면 getDate( 7 - (getWeek() - 1))
+                Log.d("월터치날짜검사수정", getDate( - (getWeek() - 1)));//0보다 크면
+                if(-(getWeek()-1)<0){
+                    intent.putExtra("day", getDate(7 - (getWeek() - 1)));//2020.08.11//터치한 위치 날짜
+                    intent.putExtra("day2", getDate3(7 - (getWeek() - 1)));//20200811//터치한 위치 날짜
+                }else{
+                    intent.putExtra("day", getDate(- (getWeek() - 1)));//2020.08.11//터치한 위치 날짜
+                    intent.putExtra("day2", getDate3(- (getWeek() - 1)));//20200811//터치한 위치 날짜
+                }
+                //intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 1)));//2020.08.11//터치한 위치 날짜
+                intent.putExtra("day22", getDate3((index-1500) * 7 - (getWeek() - 1)));//20200811//터치한 위치 날짜
                 intent.putExtra("day3", cal_week1);//데이터를 불러온 날짜
                 intent.putExtra("cal_day", cal_day1);//데이터를 월간달력에서 불러왔는지 아닌지 확인하는 값//이 값이 1이면 수정 불가능하게 설정해야됨
                 startActivity(intent);
@@ -542,8 +552,15 @@ public class frag2_week extends Fragment {
                 intent.putExtra("type", time_type2[time]);
                 intent.putExtra("body", time_body2[time]);
                 intent.putExtra("week", 2);
-                intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 2)));//2020.08.11
-                intent.putExtra("day2", getDate3((index-1500) * 7 - (getWeek() - 2)));//20200811
+                if(-(getWeek()-2)<0){
+                    intent.putExtra("day", getDate(7 - (getWeek() - 2)));//2020.08.11//터치한 위치 날짜
+                    intent.putExtra("day2", getDate3(7 - (getWeek() - 2)));//20200811//터치한 위치 날짜
+                }else{
+                    intent.putExtra("day", getDate(- (getWeek() - 2)));//2020.08.11//터치한 위치 날짜
+                    intent.putExtra("day2", getDate3(- (getWeek() - 2)));//20200811//터치한 위치 날짜
+                }
+                //intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 2)));//2020.08.11
+                intent.putExtra("day22", getDate3((index-1500) * 7 - (getWeek() - 2)));//20200811
                 intent.putExtra("day3", cal_week2);//데이터를 불러온 날짜
                 intent.putExtra("cal_day", cal_day2);//데이터를 월간달력에서 불러왔는지 아닌지 확인하는 값//이 값이 1이면 수정 불가능하게 설정해야됨
                 startActivity(intent);
@@ -616,8 +633,15 @@ public class frag2_week extends Fragment {
                 intent.putExtra("type", time_type3[time]);
                 intent.putExtra("body", time_body3[time]);
                 intent.putExtra("week", 3);
-                intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 3)));//2020.08.11
-                intent.putExtra("day2", getDate3((index-1500) * 7 - (getWeek() - 3)));//20200811
+                if(-(getWeek()-3)<0){
+                    intent.putExtra("day", getDate(7 - (getWeek() - 3)));//2020.08.11//터치한 위치 날짜
+                    intent.putExtra("day2", getDate3(7 - (getWeek() - 3)));//20200811//터치한 위치 날짜
+                }else{
+                    intent.putExtra("day", getDate(- (getWeek() - 3)));//2020.08.11//터치한 위치 날짜
+                    intent.putExtra("day2", getDate3(- (getWeek() - 3)));//20200811//터치한 위치 날짜
+                }
+                //intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 3)));//2020.08.11
+                intent.putExtra("day22", getDate3((index-1500) * 7 - (getWeek() - 3)));//20200811
                 intent.putExtra("day3", cal_week3);//데이터를 불러온 날짜
                 intent.putExtra("cal_day", cal_day3);//데이터를 월간달력에서 불러왔는지 아닌지 확인하는 값//이 값이 1이면 수정 불가능하게 설정해야됨
                 startActivity(intent);
@@ -690,8 +714,15 @@ public class frag2_week extends Fragment {
                 intent.putExtra("type", time_type4[time]);
                 intent.putExtra("body", time_body4[time]);
                 intent.putExtra("week", 4);
-                intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 4)));//2020.08.11
-                intent.putExtra("day2", getDate3((index-1500) * 7 - (getWeek() - 4)));//20200811
+                if(-(getWeek()-4)<0){
+                    intent.putExtra("day", getDate(7 - (getWeek() - 4)));//2020.08.11//터치한 위치 날짜
+                    intent.putExtra("day2", getDate3(7 - (getWeek() - 4)));//20200811//터치한 위치 날짜
+                }else{
+                    intent.putExtra("day", getDate(- (getWeek() - 4)));//2020.08.11//터치한 위치 날짜
+                    intent.putExtra("day2", getDate3(- (getWeek() - 4)));//20200811//터치한 위치 날짜
+                }
+                //intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 4)));//2020.08.11
+                intent.putExtra("day22", getDate3((index-1500) * 7 - (getWeek() - 4)));//20200811
                 intent.putExtra("day3", cal_week4);//데이터를 불러온 날짜
                 intent.putExtra("cal_day", cal_day4);//데이터를 월간달력에서 불러왔는지 아닌지 확인하는 값//이 값이 1이면 수정 불가능하게 설정해야됨
                 startActivity(intent);
@@ -768,8 +799,18 @@ public class frag2_week extends Fragment {
                 intent.putExtra("type", time_type5[time]);
                 intent.putExtra("body", time_body5[time]);
                 intent.putExtra("week", 5);
-                intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 5)));//2020.08.11
-                intent.putExtra("day2", getDate3((index-1500) * 7 - (getWeek() - 5)));//20200811
+                Log.d("금터치날짜검사", getDate((index-1500) * 7 - (getWeek() - 5)));
+                Log.d("금터치날짜검사변수",Integer.toString(-(getWeek()-5)));
+                Log.d("금터치날짜검사수정", getDate( - (getWeek() - 5)));
+                if(-(getWeek()-5)<0){
+                    intent.putExtra("day", getDate(7 - (getWeek() - 5)));//2020.08.11//터치한 위치 날짜
+                    intent.putExtra("day2", getDate3(7 - (getWeek() - 5)));//20200811//터치한 위치 날짜
+                }else{
+                    intent.putExtra("day", getDate(- (getWeek() - 5)));//2020.08.11//터치한 위치 날짜
+                    intent.putExtra("day2", getDate3(- (getWeek() - 5)));//20200811//터치한 위치 날짜
+                }
+                //intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 5)));//2020.08.11
+                intent.putExtra("day22", getDate3((index-1500) * 7 - (getWeek() - 5)));//20200811
                 intent.putExtra("day3", cal_week5);//데이터를 불러온 날짜
                 intent.putExtra("cal_day", cal_day5);//데이터를 월간달력에서 불러왔는지 아닌지 확인하는 값//이 값이 1이면 수정 불가능하게 설정해야됨
                 startActivity(intent);
@@ -842,8 +883,15 @@ public class frag2_week extends Fragment {
                 intent.putExtra("type", time_type6[time]);
                 intent.putExtra("body", time_body6[time]);
                 intent.putExtra("week", 6);
-                intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 6)));//2020.08.11
-                intent.putExtra("day2", getDate3((index-1500) * 7 - (getWeek() - 6)));//20200811
+                if(-(getWeek()-6)<0){
+                    intent.putExtra("day", getDate(7 - (getWeek() - 6)));//2020.08.11//터치한 위치 날짜
+                    intent.putExtra("day2", getDate3(7 - (getWeek() - 6)));//20200811//터치한 위치 날짜
+                }else{
+                    intent.putExtra("day", getDate(- (getWeek() - 6)));//2020.08.11//터치한 위치 날짜
+                    intent.putExtra("day2", getDate3(- (getWeek() - 6)));//20200811//터치한 위치 날짜
+                }
+                //intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 6)));//2020.08.11
+                intent.putExtra("day22", getDate3((index-1500) * 7 - (getWeek() - 6)));//20200811
                 intent.putExtra("day3", cal_week6);//데이터를 불러온 날짜
                 intent.putExtra("cal_day", cal_day6);//데이터를 월간달력에서 불러왔는지 아닌지 확인하는 값//이 값이 1이면 수정 불가능하게 설정해야됨
                 startActivity(intent);
@@ -916,8 +964,15 @@ public class frag2_week extends Fragment {
                 intent.putExtra("type", time_type7[time]);
                 intent.putExtra("body", time_body7[time]);
                 intent.putExtra("week", 7);
-                intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 7)));//2020.08.11
-                intent.putExtra("day2", getDate3((index-1500) * 7 - (getWeek() - 7)));//20200811
+                if(-(getWeek()-7)<0){
+                    intent.putExtra("day", getDate(7 - (getWeek() - 7)));//2020.08.11//터치한 위치 날짜
+                    intent.putExtra("day2", getDate3(7 - (getWeek() - 7)));//20200811//터치한 위치 날짜
+                }else{
+                    intent.putExtra("day", getDate(- (getWeek() - 7)));//2020.08.11//터치한 위치 날짜
+                    intent.putExtra("day2", getDate3(- (getWeek() - 7)));//20200811//터치한 위치 날짜
+                }
+                //intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 7)));//2020.08.11
+                intent.putExtra("day22", getDate3((index-1500) * 7 - (getWeek() - 7)));//20200811
                 intent.putExtra("day3", cal_week7);//데이터를 불러온 날짜
                 intent.putExtra("cal_day", cal_day7);//데이터를 월간달력에서 불러왔는지 아닌지 확인하는 값//이 값이 1이면 수정 불가능하게 설정해야됨
                 startActivity(intent);

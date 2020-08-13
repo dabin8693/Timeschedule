@@ -64,22 +64,13 @@
                 </Spinner>
                 <Button
                     android:id="@+id/week_search_button"
-                    android:layout_toLeftOf="@+id/week_look2"
+                    android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:padding="0dp"
                     android:textSize="10sp"
                     android:text="조회"></Button>
-                <TextView
-                    android:id="@+id/week_look2"
-                    android:layout_alignParentRight="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="폰사용기록보러가기"
-                    android:textStyle="bold">
 
-                </TextView>
             </RelativeLayout>
         </LinearLayout>
 

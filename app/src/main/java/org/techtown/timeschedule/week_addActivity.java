@@ -53,6 +53,7 @@ public class week_addActivity extends AppCompatActivity {
     private int cal_day;//1이면 월간에서 불러온거 0이면 주간에서 불러오거나 데이터가 아예 없을때
     private int[] item_add_day, item_add_week;
     private String[] time_body;
+    private String day22;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,6 +85,7 @@ public class week_addActivity extends AppCompatActivity {
             day2 = bundle.getString("day2");//20200811 터치한 위치 날짜//수정할때 이 날짜로 해야된다//저장하기전에 먼저day3저장값을 덮어쓰고 수정해야된다.
             day3 = bundle.getInt("day3");//20200811 쉐어드에서 데이터를 불러온 날짜 (단:아예없으면 0이다)//저장할때 키값 날짜가 이 규격이다(주간저장만)
             cal_day = bundle.getInt("cal_day");//1이면 월간에서 불러온거 0이면 주간에서 불러오거나 데이터가 아예 없을때
+            day22 = bundle.getString("day22");
         }
         Log.d("검사time", Integer.toString(time));
         Log.d("검사type", Integer.toString(type));
@@ -243,7 +245,8 @@ public class week_addActivity extends AppCompatActivity {
             check_btn.setVisible(false);//확인(수정) 버튼 숨기기
             delect_btn.setVisible(false);
         }
-        if(Integer.parseInt(day2) < Integer.parseInt(getDate3(0))){//터치한 날짜가 과거일때
+        Log.d("day2/현재",day22+"/"+getDate3(0));
+        if(Integer.parseInt(day22) < Integer.parseInt(getDate3(0))){//터치한 날짜가 과거일때
             check_btn.setVisible(false);//확인(수정) 버튼 숨기기
             delect_btn.setVisible(false);
         }

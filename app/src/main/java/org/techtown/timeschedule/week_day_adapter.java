@@ -1,5 +1,6 @@
 package org.techtown.timeschedule;
 
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class week_day_adapter extends RecyclerView.Adapter<week_day_adapter.ViewHolder> {
     private int height, width;
@@ -64,6 +66,34 @@ public class week_day_adapter extends RecyclerView.Adapter<week_day_adapter.View
 
         public void setItem(WeekdayList item){
             textView.setText(item.getDay());
+            if(getDate2(0).equals(item.getDay())){
+                textView.setTextColor(Color.parseColor("#1DDB16"));
+            }
         }
+    }
+
+    public String getDate2(int iDay) {//08/11
+        Calendar temp = Calendar.getInstance();
+        StringBuffer sbDate = new StringBuffer();
+
+
+        temp.add(Calendar.DAY_OF_MONTH, iDay);
+
+
+        int nYear = temp.get(Calendar.YEAR);
+        int nMonth = temp.get(Calendar.MONTH) + 1;
+        int nDay = temp.get(Calendar.DAY_OF_MONTH);
+
+
+        if (nMonth < 10)
+            sbDate.append("0");
+        sbDate.append(nMonth);
+        sbDate.append("/");
+        if (nDay < 10)
+            sbDate.append("0");
+        sbDate.append(nDay);
+
+
+        return sbDate.toString();
     }
 }

@@ -27,7 +27,7 @@ import androidx.core.content.ContextCompat;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.TextInputEditText;
 
-public class month_addActivity extends AppCompatActivity {
+public class month_insertActivity extends AppCompatActivity {
 
     private MaterialToolbar toolbar;
     private String time;
@@ -41,12 +41,14 @@ public class month_addActivity extends AppCompatActivity {
     private String[] category_array, category_array_d, time_category;
     private ImageView circle;
     private GradientDrawable drawable;
-    private int count_category, dialog_position;
+    private int count_category, dialog_position, type, start_time;
+    private int color;
+    private String category;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_month_add);
+        setContentView(R.layout.activity_month_insert);
 
         color_array = new int[100];
         category_array = new String[100];
@@ -57,9 +59,14 @@ public class month_addActivity extends AppCompatActivity {
         if (intent.getExtras() != null) {
             Bundle bundle = intent.getExtras();
             time = bundle.getString("time");//2020.08.16
-
+            type = bundle.getInt("type");
+            start_time = bundle.getInt("start_time");
+            body = bundle.getString("body");
+            color = bundle.getInt("color");
+            category = bundle.getString("category");
         }
         Log.d("time", time);
+        Log.d("달칼라",Integer.toString(color));
 
         day_t = findViewById(R.id.add_month_day);
         day_t.setText(time);
@@ -86,18 +93,21 @@ public class month_addActivity extends AppCompatActivity {
         //getSupportActionBar().setTitle(month+"월 "+year+"년");
 
         input_body = findViewById(R.id.add_body);
+        input_body.setText(body);
 
         circle = findViewById(R.id.week_add_circle);
         category_t = findViewById(R.id.week_add_category);
-        drawable = (GradientDrawable) ContextCompat.getDrawable(month_addActivity.this, R.drawable.circle_style);
-
-        count_category = 1;//1이면 확인버튼 못누름
-        drawable.setColor(-2236963);
+        drawable = (GradientDrawable) ContextCompat.getDrawable(month_insertActivity.this, R.drawable.circle_style);
+        category_t.setText(category);
+        drawable.setColor(color);
         circle.setImageDrawable(drawable);
+        count_category = 1;//1이면 확인버튼 못누름
+        //drawable.setColor(-2236963);
+        //circle.setImageDrawable(drawable);
         category_t.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(month_addActivity.this).setTitle("선택").setItems(category_array_d, new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(month_insertActivity.this).setTitle("선택").setItems(category_array_d, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         count_category = 0;
@@ -115,7 +125,7 @@ public class month_addActivity extends AppCompatActivity {
                 R.array.month_spinner_start, android.R.layout.simple_spinner_item);
         time_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         time_spinner.setAdapter(time_adapter);
-        time_spinner.setSelection(10);
+        time_spinner.setSelection(start_time);
         time_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -136,7 +146,7 @@ public class month_addActivity extends AppCompatActivity {
                 R.array.month_spinner_end, android.R.layout.simple_spinner_item);
         time_adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         time_spinner2.setAdapter(time_adapter2);
-        time_spinner2.setSelection(12);
+        time_spinner2.setSelection(start_time+type-1);
         time_spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -156,7 +166,7 @@ public class month_addActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.wekk_setting_app_bar, menu);
+        menuInflater.inflate(R.menu.week_add_app_bar, menu);
         //MenuItem check_btn = menu.findItem(R.id.appbar_week_check);
         return true;
     }
@@ -165,19 +175,20 @@ public class month_addActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         Log.d("id:", Integer.toString(id));
-        if (id == 2131296339) {//check
+        if (id == 2131296336) {//check
             if(choice_start_time<=choice_end_time) {
                 if(input_body.getText() != null) {
                     if(input_body.getText().toString().length()>0) {
-                        if(count_category == 0) {
-                            save();
-                        }
+                        insert_save();
                     }
                 }
             }else{
-                Toast.makeText(month_addActivity.this,"시간을 다시 설정하세요.",Toast.LENGTH_SHORT).show();
+                Toast.makeText(month_insertActivity.this,"시간을 다시 설정하세요.",Toast.LENGTH_SHORT).show();
             }
         } else if (id == 16908332) {//back
+            finish();
+        } else if (id == 2131296337){//delect
+            delect_save();
             finish();
         }
 
@@ -188,6 +199,16 @@ public class month_addActivity extends AppCompatActivity {
 
     public void restore() {
         SharedPreferences pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        for (int i = start_time; i < start_time + type; i++) {//use,타입,바디초기화 초기화 기준: 기존 설정되어있던 범위
+            editor.putInt("day"+time+"time_use_" + i, 0);
+            editor.putInt("day"+time+"time_type_" + i, 1);
+            editor.putString("day"+time+"time_body_" + i, null);
+            editor.putInt("day"+time+"time_color_" + i,0);
+            editor.putString("day"+time+"time_category_" + i,null);
+            Log.d("같은날저장초기화"+i,"ㄴㄹㄴ");
+        }
+        editor.commit();
         if (pref != null) {
 
             for (int i = 0; i < 48; i++) {
@@ -200,9 +221,36 @@ public class month_addActivity extends AppCompatActivity {
 
             }
         }
+
     }
 
-    public void save(){
+    public void delect_save(){
+        SharedPreferences pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        for (int i = start_time; i < start_time + type; i++) {//use,타입,바디초기화 초기화 기준: 기존 설정되어있던 범위
+            //Log.d("초이스1i"+i,Integer.toString(i));
+            //use타입 말고는 time번째 제외하고는 값이 비어있지만 혹시 모르니 모든 변수 초기화
+            editor.putInt("day"+time+"time_use_" + i, 0);
+            editor.putInt("day"+time+"time_type_" + i, 1);
+            editor.putString("day"+time+"time_body_" + i, null);
+            editor.putInt("day"+time+"time_color_" + i,0);
+            editor.putString("day"+time+"time_category_" + i,null);
+        }
+        editor.commit();
+        int delect_count = 0;
+        for(int i = 0; i<100; i++) {
+            if (pref.getInt("day" + time + "time_use_" + i, 0) == 1) {
+                delect_count++;
+            }
+        }
+        if(delect_count == 0){//월간 스케줄이 아예 없을때
+            editor.putInt("day"+time,0);//월간 설정이 없다
+            editor.commit();
+        }
+    }
+
+
+    public void insert_save(){
         SharedPreferences pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         int tp_type = choice_end_time - choice_start_time;
@@ -212,7 +260,16 @@ public class month_addActivity extends AppCompatActivity {
                 save_count++;
             }
         }
+        Log.d("타입은세이브카운터",Integer.toString(save_count));
         if(save_count == 0){
+            for (int i = start_time; i < start_time + type; i++) {//use,타입,바디초기화 초기화 기준: 기존 설정되어있던 범위
+                editor.putInt("day"+time+"time_use_" + i, 0);
+                editor.putInt("day"+time+"time_type_" + i, 1);
+                editor.putString("day"+time+"time_body_" + i, null);
+                editor.putInt("day"+time+"time_color_" + i,0);
+                editor.putString("day"+time+"time_category_" + i,null);
+                Log.d("같은날저장초기화"+i,"ㄴㄹㄴ");
+            }
             editor.putInt("day"+time, 1);//월간설정이 있다
             editor.putInt("day"+time+"time_type_" + choice_start_time, tp_type + 1);//간격 설정
             editor.putString("day"+time+"time_body_" + choice_start_time, input_body.getText().toString());//내용 넣기
@@ -247,11 +304,18 @@ public class month_addActivity extends AppCompatActivity {
             for (int i = choice_start_time; i < choice_start_time + tp_type + 1; i++) {//use초기화후 넣기//14:00 /14:30 이면 tp_type = 0이다
                 editor.putInt("day"+time+"time_use_" + i, 1);//사용중이다
             }
+            Log.d("타입은",Integer.toString(tp_type));
+            Log.d("타입은엔드",Integer.toString(choice_end_time));
+            Log.d("타입은스타트",Integer.toString(choice_start_time));
+            Log.d("타입은인텐트스타트",Integer.toString(start_time));
             editor.commit();
             finish();
         }else{
             //사용중인 시간이 있습니다
-            Toast.makeText(month_addActivity.this,"중복",Toast.LENGTH_SHORT).show();
+            Log.d("타입은인텐트스타트",Integer.toString(start_time));
+            Log.d("타입은엔드",Integer.toString(choice_end_time));
+            Log.d("타입은스타트",Integer.toString(choice_start_time));
+            Toast.makeText(month_insertActivity.this,"중복",Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -432,7 +432,6 @@ public class frag3_week extends Fragment {
         body_adapter_1.setOnItemClickListener(new OnlistItemClickListener() {
             @Override
             public void onItemClick(week_body_adapter.ViewHolder holder, View view, int position) {
-                Intent intent = new Intent(getActivity(), week_addActivity.class);
                 temp_start_index = 0;
                 temp_time_type1 = 0;
                 for (int i = 0; i < frag_week.WEEK_START_TIME; i++) {
@@ -463,25 +462,37 @@ public class frag3_week extends Fragment {
                         count++;
                     }
                 }
-                intent.putExtra("time", time);
-                intent.putExtra("type", time_type1[time]);
-                intent.putExtra("body", time_body1[time]);
-                intent.putExtra("week", 1);
-                Log.d("월터치날짜검사", getDate((index-1500) * 7 - (getWeek() - 1)));
-                Log.d("월터치날짜검사변수",Integer.toString(-(getWeek()-1)));//0보다 작으면 getDate( 7 - (getWeek() - 1))
-                Log.d("월터치날짜검사수정", getDate( - (getWeek() - 1)));//0보다 크면
-                if(-(getWeek()-1)<0){
-                    intent.putExtra("day", getDate(7 - (getWeek() - 1)));//2020.08.11//터치한 위치 날짜
-                    intent.putExtra("day2", getDate3(7 - (getWeek() - 1)));//20200811//터치한 위치 날짜
-                }else{
-                    intent.putExtra("day", getDate(- (getWeek() - 1)));//2020.08.11//터치한 위치 날짜
-                    intent.putExtra("day2", getDate3(- (getWeek() - 1)));//20200811//터치한 위치 날짜
+                if(cal_day1 == 0) {
+                    Intent intent = new Intent(getActivity(), week_addActivity.class);
+                    intent.putExtra("time", time);
+                    intent.putExtra("type", time_type1[time]);
+                    intent.putExtra("body", time_body1[time]);
+                    intent.putExtra("week", 1);
+                    Log.d("월터치날짜검사", getDate((index - 1500) * 7 - (getWeek() - 1)));
+                    Log.d("월터치날짜검사변수", Integer.toString(-(getWeek() - 1)));//0보다 작으면 getDate( 7 - (getWeek() - 1))
+                    Log.d("월터치날짜검사수정", getDate(-(getWeek() - 1)));//0보다 크면
+                    if (-(getWeek() - 1) < 0) {
+                        intent.putExtra("day", getDate(7 - (getWeek() - 1)));//2020.08.11//터치한 위치 날짜
+                        intent.putExtra("day2", getDate3(7 - (getWeek() - 1)));//20200811//터치한 위치 날짜
+                    } else {
+                        intent.putExtra("day", getDate(-(getWeek() - 1)));//2020.08.11//터치한 위치 날짜
+                        intent.putExtra("day2", getDate3(-(getWeek() - 1)));//20200811//터치한 위치 날짜
+                    }
+                    //intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 1)));//2020.08.11//터치한 위치 날짜
+                    intent.putExtra("day22", getDate3((index - 1500) * 7 - (getWeek() - 1)));//20200811//터치한 위치 날짜
+                    intent.putExtra("day3", cal_week1);//데이터를 불러온 날짜
+                    intent.putExtra("cal_day", cal_day1);//데이터를 월간달력에서 불러왔는지 아닌지 확인하는 값//이 값이 1이면 수정 불가능하게 설정해야됨
+                    startActivity(intent);
+                }else if(cal_day1 == 1){
+                    Intent intent = new Intent(getActivity(), month_expandActivity.class);
+                    intent.putExtra("time",getDate((index - 1500) * 7 - (getWeek() - 1)));
+                    intent.putExtra("type", time_type1[time]);
+                    intent.putExtra("start_time",time);
+                    intent.putExtra("body",time_body1[time]);
+                    intent.putExtra("color",time_color1[time]);
+                    intent.putExtra("category",time_category1[time]);
+                    startActivity(intent);
                 }
-                //intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 1)));//2020.08.11//터치한 위치 날짜
-                intent.putExtra("day22", getDate3((index-1500) * 7 - (getWeek() - 1)));//20200811//터치한 위치 날짜
-                intent.putExtra("day3", cal_week1);//데이터를 불러온 날짜
-                intent.putExtra("cal_day", cal_day1);//데이터를 월간달력에서 불러왔는지 아닌지 확인하는 값//이 값이 1이면 수정 불가능하게 설정해야됨
-                startActivity(intent);
             }
         });
 
@@ -516,7 +527,6 @@ public class frag3_week extends Fragment {
         body_adapter_2.setOnItemClickListener(new OnlistItemClickListener() {
             @Override
             public void onItemClick(week_body_adapter.ViewHolder holder, View view, int position) {
-                Intent intent = new Intent(getActivity(), week_addActivity.class);
                 temp_start_index = 0;
                 temp_time_type1 = 0;
                 for (int i = 0; i < frag_week.WEEK_START_TIME; i++) {
@@ -547,22 +557,34 @@ public class frag3_week extends Fragment {
                         count++;
                     }
                 }
-                intent.putExtra("time", time);
-                intent.putExtra("type", time_type2[time]);
-                intent.putExtra("body", time_body2[time]);
-                intent.putExtra("week", 2);
-                if(-(getWeek()-2)<0){
-                    intent.putExtra("day", getDate(7 - (getWeek() - 2)));//2020.08.11//터치한 위치 날짜
-                    intent.putExtra("day2", getDate3(7 - (getWeek() - 2)));//20200811//터치한 위치 날짜
-                }else{
-                    intent.putExtra("day", getDate(- (getWeek() - 2)));//2020.08.11//터치한 위치 날짜
-                    intent.putExtra("day2", getDate3(- (getWeek() - 2)));//20200811//터치한 위치 날짜
+                if(cal_day2 == 0) {
+                    Intent intent = new Intent(getActivity(), week_addActivity.class);
+                    intent.putExtra("time", time);
+                    intent.putExtra("type", time_type2[time]);
+                    intent.putExtra("body", time_body2[time]);
+                    intent.putExtra("week", 2);
+                    if (-(getWeek() - 2) < 0) {
+                        intent.putExtra("day", getDate(7 - (getWeek() - 2)));//2020.08.11//터치한 위치 날짜
+                        intent.putExtra("day2", getDate3(7 - (getWeek() - 2)));//20200811//터치한 위치 날짜
+                    } else {
+                        intent.putExtra("day", getDate(-(getWeek() - 2)));//2020.08.11//터치한 위치 날짜
+                        intent.putExtra("day2", getDate3(-(getWeek() - 2)));//20200811//터치한 위치 날짜
+                    }
+                    //intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 2)));//2020.08.11
+                    intent.putExtra("day22", getDate3((index - 1500) * 7 - (getWeek() - 2)));//20200811
+                    intent.putExtra("day3", cal_week2);//데이터를 불러온 날짜
+                    intent.putExtra("cal_day", cal_day2);//데이터를 월간달력에서 불러왔는지 아닌지 확인하는 값//이 값이 1이면 수정 불가능하게 설정해야됨
+                    startActivity(intent);
+                }else if (cal_day2 == 1){
+                    Intent intent = new Intent(getActivity(), month_expandActivity.class);
+                    intent.putExtra("time",getDate((index - 1500) * 7 - (getWeek() - 2)));
+                    intent.putExtra("type", time_type2[time]);
+                    intent.putExtra("start_time",time);
+                    intent.putExtra("body",time_body2[time]);
+                    intent.putExtra("color",time_color2[time]);
+                    intent.putExtra("category",time_category2[time]);
+                    startActivity(intent);
                 }
-                //intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 2)));//2020.08.11
-                intent.putExtra("day22", getDate3((index-1500) * 7 - (getWeek() - 2)));//20200811
-                intent.putExtra("day3", cal_week2);//데이터를 불러온 날짜
-                intent.putExtra("cal_day", cal_day2);//데이터를 월간달력에서 불러왔는지 아닌지 확인하는 값//이 값이 1이면 수정 불가능하게 설정해야됨
-                startActivity(intent);
             }
         });
 
@@ -597,7 +619,6 @@ public class frag3_week extends Fragment {
         body_adapter_3.setOnItemClickListener(new OnlistItemClickListener() {
             @Override
             public void onItemClick(week_body_adapter.ViewHolder holder, View view, int position) {
-                Intent intent = new Intent(getActivity(), week_addActivity.class);
                 temp_start_index = 0;
                 temp_time_type1 = 0;
                 for (int i = 0; i < frag_week.WEEK_START_TIME; i++) {
@@ -628,22 +649,34 @@ public class frag3_week extends Fragment {
                         count++;
                     }
                 }
-                intent.putExtra("time", time);
-                intent.putExtra("type", time_type3[time]);
-                intent.putExtra("body", time_body3[time]);
-                intent.putExtra("week", 3);
-                if(-(getWeek()-3)<0){
-                    intent.putExtra("day", getDate(7 - (getWeek() - 3)));//2020.08.11//터치한 위치 날짜
-                    intent.putExtra("day2", getDate3(7 - (getWeek() - 3)));//20200811//터치한 위치 날짜
-                }else{
-                    intent.putExtra("day", getDate(- (getWeek() - 3)));//2020.08.11//터치한 위치 날짜
-                    intent.putExtra("day2", getDate3(- (getWeek() - 3)));//20200811//터치한 위치 날짜
+                if(cal_day3 == 0) {
+                    Intent intent = new Intent(getActivity(), week_addActivity.class);
+                    intent.putExtra("time", time);
+                    intent.putExtra("type", time_type3[time]);
+                    intent.putExtra("body", time_body3[time]);
+                    intent.putExtra("week", 3);
+                    if (-(getWeek() - 3) < 0) {
+                        intent.putExtra("day", getDate(7 - (getWeek() - 3)));//2020.08.11//터치한 위치 날짜
+                        intent.putExtra("day2", getDate3(7 - (getWeek() - 3)));//20200811//터치한 위치 날짜
+                    } else {
+                        intent.putExtra("day", getDate(-(getWeek() - 3)));//2020.08.11//터치한 위치 날짜
+                        intent.putExtra("day2", getDate3(-(getWeek() - 3)));//20200811//터치한 위치 날짜
+                    }
+                    //intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 3)));//2020.08.11
+                    intent.putExtra("day22", getDate3((index - 1500) * 7 - (getWeek() - 3)));//20200811
+                    intent.putExtra("day3", cal_week3);//데이터를 불러온 날짜
+                    intent.putExtra("cal_day", cal_day3);//데이터를 월간달력에서 불러왔는지 아닌지 확인하는 값//이 값이 1이면 수정 불가능하게 설정해야됨
+                    startActivity(intent);
+                }else if (cal_day3 == 1){
+                    Intent intent = new Intent(getActivity(), month_expandActivity.class);
+                    intent.putExtra("time",getDate((index - 1500) * 7 - (getWeek() - 3)));
+                    intent.putExtra("type", time_type3[time]);
+                    intent.putExtra("start_time",time);
+                    intent.putExtra("body",time_body3[time]);
+                    intent.putExtra("color",time_color3[time]);
+                    intent.putExtra("category",time_category3[time]);
+                    startActivity(intent);
                 }
-                //intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 3)));//2020.08.11
-                intent.putExtra("day22", getDate3((index-1500) * 7 - (getWeek() - 3)));//20200811
-                intent.putExtra("day3", cal_week3);//데이터를 불러온 날짜
-                intent.putExtra("cal_day", cal_day3);//데이터를 월간달력에서 불러왔는지 아닌지 확인하는 값//이 값이 1이면 수정 불가능하게 설정해야됨
-                startActivity(intent);
             }
         });
 
@@ -678,7 +711,6 @@ public class frag3_week extends Fragment {
         body_adapter_4.setOnItemClickListener(new OnlistItemClickListener() {
             @Override
             public void onItemClick(week_body_adapter.ViewHolder holder, View view, int position) {
-                Intent intent = new Intent(getActivity(), week_addActivity.class);
                 temp_start_index = 0;
                 temp_time_type1 = 0;
                 for (int i = 0; i < frag_week.WEEK_START_TIME; i++) {
@@ -709,22 +741,34 @@ public class frag3_week extends Fragment {
                         count++;
                     }
                 }
-                intent.putExtra("time", time);
-                intent.putExtra("type", time_type4[time]);
-                intent.putExtra("body", time_body4[time]);
-                intent.putExtra("week", 4);
-                if(-(getWeek()-4)<0){
-                    intent.putExtra("day", getDate(7 - (getWeek() - 4)));//2020.08.11//터치한 위치 날짜
-                    intent.putExtra("day2", getDate3(7 - (getWeek() - 4)));//20200811//터치한 위치 날짜
-                }else{
-                    intent.putExtra("day", getDate(- (getWeek() - 4)));//2020.08.11//터치한 위치 날짜
-                    intent.putExtra("day2", getDate3(- (getWeek() - 4)));//20200811//터치한 위치 날짜
+                if(cal_day4 == 0) {
+                    Intent intent = new Intent(getActivity(), week_addActivity.class);
+                    intent.putExtra("time", time);
+                    intent.putExtra("type", time_type4[time]);
+                    intent.putExtra("body", time_body4[time]);
+                    intent.putExtra("week", 4);
+                    if (-(getWeek() - 4) < 0) {
+                        intent.putExtra("day", getDate(7 - (getWeek() - 4)));//2020.08.11//터치한 위치 날짜
+                        intent.putExtra("day2", getDate3(7 - (getWeek() - 4)));//20200811//터치한 위치 날짜
+                    } else {
+                        intent.putExtra("day", getDate(-(getWeek() - 4)));//2020.08.11//터치한 위치 날짜
+                        intent.putExtra("day2", getDate3(-(getWeek() - 4)));//20200811//터치한 위치 날짜
+                    }
+                    //intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 4)));//2020.08.11
+                    intent.putExtra("day22", getDate3((index - 1500) * 7 - (getWeek() - 4)));//20200811
+                    intent.putExtra("day3", cal_week4);//데이터를 불러온 날짜
+                    intent.putExtra("cal_day", cal_day4);//데이터를 월간달력에서 불러왔는지 아닌지 확인하는 값//이 값이 1이면 수정 불가능하게 설정해야됨
+                    startActivity(intent);
+                }else if (cal_day4 == 1){
+                    Intent intent = new Intent(getActivity(), month_expandActivity.class);
+                    intent.putExtra("time",getDate((index - 1500) * 7 - (getWeek() - 4)));
+                    intent.putExtra("type", time_type4[time]);
+                    intent.putExtra("start_time",time);
+                    intent.putExtra("body",time_body4[time]);
+                    intent.putExtra("color",time_color4[time]);
+                    intent.putExtra("category",time_category4[time]);
+                    startActivity(intent);
                 }
-                //intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 4)));//2020.08.11
-                intent.putExtra("day22", getDate3((index-1500) * 7 - (getWeek() - 4)));//20200811
-                intent.putExtra("day3", cal_week4);//데이터를 불러온 날짜
-                intent.putExtra("cal_day", cal_day4);//데이터를 월간달력에서 불러왔는지 아닌지 확인하는 값//이 값이 1이면 수정 불가능하게 설정해야됨
-                startActivity(intent);
             }
         });
 
@@ -759,7 +803,6 @@ public class frag3_week extends Fragment {
         body_adapter_5.setOnItemClickListener(new OnlistItemClickListener() {
             @Override
             public void onItemClick(week_body_adapter.ViewHolder holder, View view, int position) {
-                Intent intent = new Intent(getActivity(), week_addActivity.class);
                 temp_start_index = 0;
                 temp_time_type1 = 0;
                 for (int i = 0; i < frag_week.WEEK_START_TIME; i++) {
@@ -794,25 +837,37 @@ public class frag3_week extends Fragment {
 
                 Log.d("템프타입포지션값은",Integer.toString(position));
                 Log.d("템프타입타임값은",Integer.toString(time));
-                intent.putExtra("time", time);
-                intent.putExtra("type", time_type5[time]);
-                intent.putExtra("body", time_body5[time]);
-                intent.putExtra("week", 5);
-                Log.d("금터치날짜검사", getDate((index-1500) * 7 - (getWeek() - 5)));
-                Log.d("금터치날짜검사변수",Integer.toString(-(getWeek()-5)));
-                Log.d("금터치날짜검사수정", getDate( - (getWeek() - 5)));
-                if(-(getWeek()-5)<0){
-                    intent.putExtra("day", getDate(7 - (getWeek() - 5)));//2020.08.11//터치한 위치 날짜
-                    intent.putExtra("day2", getDate3(7 - (getWeek() - 5)));//20200811//터치한 위치 날짜
-                }else{
-                    intent.putExtra("day", getDate(- (getWeek() - 5)));//2020.08.11//터치한 위치 날짜
-                    intent.putExtra("day2", getDate3(- (getWeek() - 5)));//20200811//터치한 위치 날짜
+                if(cal_day5 == 0) {
+                    Intent intent = new Intent(getActivity(), week_addActivity.class);
+                    intent.putExtra("time", time);
+                    intent.putExtra("type", time_type5[time]);
+                    intent.putExtra("body", time_body5[time]);
+                    intent.putExtra("week", 5);
+                    Log.d("금터치날짜검사", getDate((index - 1500) * 7 - (getWeek() - 5)));
+                    Log.d("금터치날짜검사변수", Integer.toString(-(getWeek() - 5)));
+                    Log.d("금터치날짜검사수정", getDate(-(getWeek() - 5)));
+                    if (-(getWeek() - 5) < 0) {
+                        intent.putExtra("day", getDate(7 - (getWeek() - 5)));//2020.08.11//터치한 위치 날짜
+                        intent.putExtra("day2", getDate3(7 - (getWeek() - 5)));//20200811//터치한 위치 날짜
+                    } else {
+                        intent.putExtra("day", getDate(-(getWeek() - 5)));//2020.08.11//터치한 위치 날짜
+                        intent.putExtra("day2", getDate3(-(getWeek() - 5)));//20200811//터치한 위치 날짜
+                    }
+                    //intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 5)));//2020.08.11
+                    intent.putExtra("day22", getDate3((index - 1500) * 7 - (getWeek() - 5)));//20200811
+                    intent.putExtra("day3", cal_week5);//데이터를 불러온 날짜
+                    intent.putExtra("cal_day", cal_day5);//데이터를 월간달력에서 불러왔는지 아닌지 확인하는 값//이 값이 1이면 수정 불가능하게 설정해야됨
+                    startActivity(intent);
+                }else if (cal_day5 == 1){
+                    Intent intent = new Intent(getActivity(), month_expandActivity.class);
+                    intent.putExtra("time",getDate((index - 1500) * 7 - (getWeek() - 5)));
+                    intent.putExtra("type", time_type5[time]);
+                    intent.putExtra("start_time",time);
+                    intent.putExtra("body",time_body5[time]);
+                    intent.putExtra("color",time_color5[time]);
+                    intent.putExtra("category",time_category5[time]);
+                    startActivity(intent);
                 }
-                //intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 5)));//2020.08.11
-                intent.putExtra("day22", getDate3((index-1500) * 7 - (getWeek() - 5)));//20200811
-                intent.putExtra("day3", cal_week5);//데이터를 불러온 날짜
-                intent.putExtra("cal_day", cal_day5);//데이터를 월간달력에서 불러왔는지 아닌지 확인하는 값//이 값이 1이면 수정 불가능하게 설정해야됨
-                startActivity(intent);
             }
         });
 
@@ -847,7 +902,6 @@ public class frag3_week extends Fragment {
         body_adapter_6.setOnItemClickListener(new OnlistItemClickListener() {
             @Override
             public void onItemClick(week_body_adapter.ViewHolder holder, View view, int position) {
-                Intent intent = new Intent(getActivity(), week_addActivity.class);
                 temp_start_index = 0;
                 temp_time_type1 = 0;
                 for (int i = 0; i < frag_week.WEEK_START_TIME; i++) {
@@ -878,22 +932,34 @@ public class frag3_week extends Fragment {
                         count++;
                     }
                 }
-                intent.putExtra("time", time);
-                intent.putExtra("type", time_type6[time]);
-                intent.putExtra("body", time_body6[time]);
-                intent.putExtra("week", 6);
-                if(-(getWeek()-6)<0){
-                    intent.putExtra("day", getDate(7 - (getWeek() - 6)));//2020.08.11//터치한 위치 날짜
-                    intent.putExtra("day2", getDate3(7 - (getWeek() - 6)));//20200811//터치한 위치 날짜
-                }else{
-                    intent.putExtra("day", getDate(- (getWeek() - 6)));//2020.08.11//터치한 위치 날짜
-                    intent.putExtra("day2", getDate3(- (getWeek() - 6)));//20200811//터치한 위치 날짜
+                if(cal_day6 == 0) {
+                    Intent intent = new Intent(getActivity(), week_addActivity.class);
+                    intent.putExtra("time", time);
+                    intent.putExtra("type", time_type6[time]);
+                    intent.putExtra("body", time_body6[time]);
+                    intent.putExtra("week", 6);
+                    if (-(getWeek() - 6) < 0) {
+                        intent.putExtra("day", getDate(7 - (getWeek() - 6)));//2020.08.11//터치한 위치 날짜
+                        intent.putExtra("day2", getDate3(7 - (getWeek() - 6)));//20200811//터치한 위치 날짜
+                    } else {
+                        intent.putExtra("day", getDate(-(getWeek() - 6)));//2020.08.11//터치한 위치 날짜
+                        intent.putExtra("day2", getDate3(-(getWeek() - 6)));//20200811//터치한 위치 날짜
+                    }
+                    //intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 6)));//2020.08.11
+                    intent.putExtra("day22", getDate3((index - 1500) * 7 - (getWeek() - 6)));//20200811
+                    intent.putExtra("day3", cal_week6);//데이터를 불러온 날짜
+                    intent.putExtra("cal_day", cal_day6);//데이터를 월간달력에서 불러왔는지 아닌지 확인하는 값//이 값이 1이면 수정 불가능하게 설정해야됨
+                    startActivity(intent);
+                }else if (cal_day6 == 1){
+                    Intent intent = new Intent(getActivity(), month_expandActivity.class);
+                    intent.putExtra("time",getDate((index - 1500) * 7 - (getWeek() - 6)));
+                    intent.putExtra("type", time_type6[time]);
+                    intent.putExtra("start_time",time);
+                    intent.putExtra("body",time_body6[time]);
+                    intent.putExtra("color",time_color6[time]);
+                    intent.putExtra("category",time_category6[time]);
+                    startActivity(intent);
                 }
-                //intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 6)));//2020.08.11
-                intent.putExtra("day22", getDate3((index-1500) * 7 - (getWeek() - 6)));//20200811
-                intent.putExtra("day3", cal_week6);//데이터를 불러온 날짜
-                intent.putExtra("cal_day", cal_day6);//데이터를 월간달력에서 불러왔는지 아닌지 확인하는 값//이 값이 1이면 수정 불가능하게 설정해야됨
-                startActivity(intent);
             }
         });
 
@@ -928,7 +994,6 @@ public class frag3_week extends Fragment {
         body_adapter_7.setOnItemClickListener(new OnlistItemClickListener() {
             @Override
             public void onItemClick(week_body_adapter.ViewHolder holder, View view, int position) {
-                Intent intent = new Intent(getActivity(), week_addActivity.class);
                 temp_start_index = 0;
                 temp_time_type1 = 0;
                 for (int i = 0; i < frag_week.WEEK_START_TIME; i++) {
@@ -959,22 +1024,34 @@ public class frag3_week extends Fragment {
                         count++;
                     }
                 }
-                intent.putExtra("time", time);
-                intent.putExtra("type", time_type7[time]);
-                intent.putExtra("body", time_body7[time]);
-                intent.putExtra("week", 7);
-                if(-(getWeek()-7)<0){
-                    intent.putExtra("day", getDate(7 - (getWeek() - 7)));//2020.08.11//터치한 위치 날짜
-                    intent.putExtra("day2", getDate3(7 - (getWeek() - 7)));//20200811//터치한 위치 날짜
-                }else{
-                    intent.putExtra("day", getDate(- (getWeek() - 7)));//2020.08.11//터치한 위치 날짜
-                    intent.putExtra("day2", getDate3(- (getWeek() - 7)));//20200811//터치한 위치 날짜
+                if(cal_day7 == 0) {
+                    Intent intent = new Intent(getActivity(), week_addActivity.class);
+                    intent.putExtra("time", time);
+                    intent.putExtra("type", time_type7[time]);
+                    intent.putExtra("body", time_body7[time]);
+                    intent.putExtra("week", 7);
+                    if (-(getWeek() - 7) < 0) {
+                        intent.putExtra("day", getDate(7 - (getWeek() - 7)));//2020.08.11//터치한 위치 날짜
+                        intent.putExtra("day2", getDate3(7 - (getWeek() - 7)));//20200811//터치한 위치 날짜
+                    } else {
+                        intent.putExtra("day", getDate(-(getWeek() - 7)));//2020.08.11//터치한 위치 날짜
+                        intent.putExtra("day2", getDate3(-(getWeek() - 7)));//20200811//터치한 위치 날짜
+                    }
+                    //intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 7)));//2020.08.11
+                    intent.putExtra("day22", getDate3((index - 1500) * 7 - (getWeek() - 7)));//20200811
+                    intent.putExtra("day3", cal_week7);//데이터를 불러온 날짜
+                    intent.putExtra("cal_day", cal_day7);//데이터를 월간달력에서 불러왔는지 아닌지 확인하는 값//이 값이 1이면 수정 불가능하게 설정해야됨
+                    startActivity(intent);
+                }else if (cal_day7 == 1){
+                    Intent intent = new Intent(getActivity(), month_expandActivity.class);
+                    intent.putExtra("time",getDate((index - 1500) * 7 - (getWeek() - 7)));
+                    intent.putExtra("type", time_type7[time]);
+                    intent.putExtra("start_time",time);
+                    intent.putExtra("body",time_body7[time]);
+                    intent.putExtra("color",time_color7[time]);
+                    intent.putExtra("category",time_category7[time]);
+                    startActivity(intent);
                 }
-                //intent.putExtra("day", getDate((index-1500) * 7 - (getWeek() - 7)));//2020.08.11
-                intent.putExtra("day22", getDate3((index-1500) * 7 - (getWeek() - 7)));//20200811
-                intent.putExtra("day3", cal_week7);//데이터를 불러온 날짜
-                intent.putExtra("cal_day", cal_day7);//데이터를 월간달력에서 불러왔는지 아닌지 확인하는 값//이 값이 1이면 수정 불가능하게 설정해야됨
-                startActivity(intent);
             }
         });
 
@@ -993,18 +1070,19 @@ public class frag3_week extends Fragment {
                 item_add_day[i] = pref.getInt("item_add_day_" + i, 0);//20200811 없으면0
             }
             //int index = frag_week.PAGE_INDEX - 1500;
-
-            if (pref.getInt("day" + getDate((index-1500) * 7 - (getWeek() - 1)), 0) == 1) {//getweek(현재요일)-1 = 월요일
+            Log.d("주간시간표월간확인3","day" + getDate0((index-1500) * 7 - (getWeek() - 1)) + "time_body_");
+            if (pref.getInt("day" + getDate0((index-1500) * 7 - (getWeek() - 1)), 0) == 1) {//getweek(현재요일)-1 = 월요일
                 //getDate가 날짜마다 더해져서 getWeek값이 유동이여도 계산이 떨어짐
                 //1이면 월간설정 존재 0이면 존재하지않음
                 //월간설정이 존재함//월요일검사
                 //쉐어드 불러오기 day+날짜+time1_?_i
                 cal_day1 = 1;
+                Log.d("주간시간표월간확인","day" + getDate0((index-1500) * 7 - (getWeek() - 1)) + "time_body_");
                 for (int i = 0; i < 100; i++) {
-                    time_body1[i] = pref.getString("day" + getDate((index-1500) * 7 - (getWeek() - 1)) + "time1_body_" + i, null);
-                    time_category1[i] = pref.getString("day" + getDate((index-1500) * 7 - (getWeek() - 1)) + "time1_category_" + i, null);
-                    time_color1[i] = pref.getInt("day" + getDate((index-1500) * 7 - (getWeek() - 1)) + "time1_color_" + i, 0);
-                    time_type1[i] = pref.getInt("day" + getDate((index-1500) * 7 - (getWeek() - 1)) + "time1_type_" + i, 1);
+                    time_body1[i] = pref.getString("day" + getDate0((index-1500) * 7 - (getWeek() - 1)) + "time_body_" + i, null);
+                    time_category1[i] = pref.getString("day" + getDate0((index-1500) * 7 - (getWeek() - 1)) + "time_category_" + i, null);
+                    time_color1[i] = pref.getInt("day" + getDate0((index-1500) * 7 - (getWeek() - 1)) + "time_color_" + i, 0);
+                    time_type1[i] = pref.getInt("day" + getDate0((index-1500) * 7 - (getWeek() - 1)) + "time_type_" + i, 1);
                 }
             } else {
                 int temp_index = 0;
@@ -1082,16 +1160,16 @@ public class frag3_week extends Fragment {
                 ////////////////////////////////////////////////////
             }
 
-            if (pref.getInt("day" + getDate((index-1500) * 7 - (getWeek() - 2)), 0) == 1) {//getweek(현재요일)-2 = 화요일
+            if (pref.getInt("day" + getDate0((index-1500) * 7 - (getWeek() - 2)), 0) == 1) {//getweek(현재요일)-2 = 화요일
                 //1이면 월간설정 존재 0이면 존재하지않음
                 //월간설정이 존재함//화요일검사
                 //쉐어드 불러오기 day+날짜+time2_?_i
                 cal_day2 = 1;
                 for (int i = 0; i < 100; i++) {
-                    time_body2[i] = pref.getString("day" + getDate((index-1500) * 7 - (getWeek() - 2)) + "time2_body_" + i, null);
-                    time_category2[i] = pref.getString("day" + getDate((index-1500) * 7 - (getWeek() - 2)) + "time2_category_" + i, null);
-                    time_color2[i] = pref.getInt("day" + getDate((index-1500) * 7 - (getWeek() - 2)) + "time2_color_" + i, 0);
-                    time_type2[i] = pref.getInt("day" + getDate((index-1500) * 7 - (getWeek() - 2)) + "time2_type_" + i, 1);
+                    time_body2[i] = pref.getString("day" + getDate0((index-1500) * 7 - (getWeek() - 2)) + "time_body_" + i, null);
+                    time_category2[i] = pref.getString("day" + getDate0((index-1500) * 7 - (getWeek() - 2)) + "time_category_" + i, null);
+                    time_color2[i] = pref.getInt("day" + getDate0((index-1500) * 7 - (getWeek() - 2)) + "time_color_" + i, 0);
+                    time_type2[i] = pref.getInt("day" + getDate0((index-1500) * 7 - (getWeek() - 2)) + "time_type_" + i, 1);
                 }
             } else {
                 int temp_index = 0;
@@ -1168,16 +1246,16 @@ public class frag3_week extends Fragment {
                 ////////////////////////////////////////////////////
             }
 
-            if (pref.getInt("day" + getDate((index-1500) * 7 - (getWeek() - 3)), 0) == 1) {//getweek(현재요일)-3 = 수요일
+            if (pref.getInt("day" + getDate0((index-1500) * 7 - (getWeek() - 3)), 0) == 1) {//getweek(현재요일)-3 = 수요일
                 //1이면 월간설정 존재 0이면 존재하지않음
                 //월간설정이 존재함//수요일검사
                 //쉐어드 불러오기 day+날짜+time3_?_i
                 cal_day3 = 1;
                 for (int i = 0; i < 100; i++) {
-                    time_body3[i] = pref.getString("day" + getDate((index-1500) * 7 - (getWeek() - 3)) + "time3_body_" + i, null);
-                    time_category3[i] = pref.getString("day" + getDate((index-1500) * 7 - (getWeek() - 3)) + "time3_category_" + i, null);
-                    time_color3[i] = pref.getInt("day" + getDate((index-1500) * 7 - (getWeek() - 3)) + "time3_color_" + i, 0);
-                    time_type3[i] = pref.getInt("day" + getDate((index-1500) * 7 - (getWeek() - 3)) + "time3_type_" + i, 1);
+                    time_body3[i] = pref.getString("day" + getDate0((index-1500) * 7 - (getWeek() - 3)) + "time_body_" + i, null);
+                    time_category3[i] = pref.getString("day" + getDate0((index-1500) * 7 - (getWeek() - 3)) + "time_category_" + i, null);
+                    time_color3[i] = pref.getInt("day" + getDate0((index-1500) * 7 - (getWeek() - 3)) + "time_color_" + i, 0);
+                    time_type3[i] = pref.getInt("day" + getDate0((index-1500) * 7 - (getWeek() - 3)) + "time_type_" + i, 1);
                 }
             } else {
                 int temp_index = 0;
@@ -1254,16 +1332,16 @@ public class frag3_week extends Fragment {
                 ////////////////////////////////////////////////////
             }
 
-            if (pref.getInt("day" + getDate((index-1500) * 7 - (getWeek() - 4)), 0) == 1) {//getweek(현재요일)-4 = 목요일
+            if (pref.getInt("day" + getDate0((index-1500) * 7 - (getWeek() - 4)), 0) == 1) {//getweek(현재요일)-4 = 목요일
                 //1이면 월간설정 존재 0이면 존재하지않음
                 //월간설정이 존재함//화요일검사
                 //쉐어드 불러오기 day+날짜+time4_?_i
                 cal_day4 = 1;
                 for (int i = 0; i < 100; i++) {
-                    time_body4[i] = pref.getString("day" + getDate((index-1500) * 7 - (getWeek() - 4)) + "time4_body_" + i, null);
-                    time_category4[i] = pref.getString("day" + getDate((index-1500) * 7 - (getWeek() - 4)) + "time4_category_" + i, null);
-                    time_color4[i] = pref.getInt("day" + getDate((index-1500) * 7 - (getWeek() - 4)) + "time4_color_" + i, 0);
-                    time_type4[i] = pref.getInt("day" + getDate((index-1500) * 7 - (getWeek() - 4)) + "time4_type_" + i, 1);
+                    time_body4[i] = pref.getString("day" + getDate0((index-1500) * 7 - (getWeek() - 4)) + "time_body_" + i, null);
+                    time_category4[i] = pref.getString("day" + getDate0((index-1500) * 7 - (getWeek() - 4)) + "time_category_" + i, null);
+                    time_color4[i] = pref.getInt("day" + getDate0((index-1500) * 7 - (getWeek() - 4)) + "time_color_" + i, 0);
+                    time_type4[i] = pref.getInt("day" + getDate0((index-1500) * 7 - (getWeek() - 4)) + "time_type_" + i, 1);
                 }
             } else {
                 int temp_index = 0;
@@ -1340,16 +1418,16 @@ public class frag3_week extends Fragment {
                 ////////////////////////////////////////////////////
             }
 
-            if (pref.getInt("day" + getDate((index-1500) * 7 - (getWeek() - 5)), 0) == 1) {//getweek(현재요일)-5 = 금요일
+            if (pref.getInt("day" + getDate0((index-1500) * 7 - (getWeek() - 5)), 0) == 1) {//getweek(현재요일)-5 = 금요일
                 //1이면 월간설정 존재 0이면 존재하지않음
                 //월간설정이 존재함//화요일검사
                 //쉐어드 불러오기 day+날짜+time1_?_i
                 cal_day5 = 1;
                 for (int i = 0; i < 100; i++) {
-                    time_body5[i] = pref.getString("day" + getDate((index-1500) * 7 - (getWeek() - 5)) + "time5_body_" + i, null);
-                    time_category5[i] = pref.getString("day" + getDate((index-1500) * 7 - (getWeek() - 5)) + "time5_category_" + i, null);
-                    time_color5[i] = pref.getInt("day" + getDate((index-1500) * 7 - (getWeek() - 5)) + "time5_color_" + i, 0);
-                    time_type5[i] = pref.getInt("day" + getDate((index-1500) * 7 - (getWeek() - 5)) + "time5_type_" + i, 1);
+                    time_body5[i] = pref.getString("day" + getDate0((index-1500) * 7 - (getWeek() - 5)) + "time_body_" + i, null);
+                    time_category5[i] = pref.getString("day" + getDate0((index-1500) * 7 - (getWeek() - 5)) + "time_category_" + i, null);
+                    time_color5[i] = pref.getInt("day" + getDate0((index-1500) * 7 - (getWeek() - 5)) + "time_color_" + i, 0);
+                    time_type5[i] = pref.getInt("day" + getDate0((index-1500) * 7 - (getWeek() - 5)) + "time_type_" + i, 1);
                 }
             } else {
                 int temp_index = 0;
@@ -1426,16 +1504,16 @@ public class frag3_week extends Fragment {
                 ////////////////////////////////////////////////////
             }
 
-            if (pref.getInt("day" + getDate((index-1500) * 7 - (getWeek() - 6)), 0) == 1) {//getweek(현재요일)-6 = 토요일
+            if (pref.getInt("day" + getDate0((index-1500) * 7 - (getWeek() - 6)), 0) == 1) {//getweek(현재요일)-6 = 토요일
                 //1이면 월간설정 존재 0이면 존재하지않음
                 //월간설정이 존재함//화요일검사
                 //쉐어드 불러오기 day+날짜+time1_?_i
                 cal_day6 = 1;
                 for (int i = 0; i < 100; i++) {
-                    time_body6[i] = pref.getString("day" + getDate((index-1500) * 7 - (getWeek() - 6)) + "time6_body_" + i, null);
-                    time_category6[i] = pref.getString("day" + getDate((index-1500) * 7 - (getWeek() - 6)) + "time6_category_" + i, null);
-                    time_color6[i] = pref.getInt("day" + getDate((index-1500) * 7 - (getWeek() - 6)) + "time6_color_" + i, 0);
-                    time_type6[i] = pref.getInt("day" + getDate((index-1500) * 7 - (getWeek() - 6)) + "time6_type_" + i, 1);
+                    time_body6[i] = pref.getString("day" + getDate0((index-1500) * 7 - (getWeek() - 6)) + "time_body_" + i, null);
+                    time_category6[i] = pref.getString("day" + getDate0((index-1500) * 7 - (getWeek() - 6)) + "time_category_" + i, null);
+                    time_color6[i] = pref.getInt("day" + getDate0((index-1500) * 7 - (getWeek() - 6)) + "time_color_" + i, 0);
+                    time_type6[i] = pref.getInt("day" + getDate0((index-1500) * 7 - (getWeek() - 6)) + "time_type_" + i, 1);
                 }
             } else {
                 int temp_index = 0;
@@ -1512,16 +1590,16 @@ public class frag3_week extends Fragment {
                 ////////////////////////////////////////////////////
             }
 
-            if (pref.getInt("day" + getDate((index-1500) * 7 - (getWeek() - 7)), 0) == 1) {//getweek(현재요일)-7 = 일요일
+            if (pref.getInt("day" + getDate0((index-1500) * 7 - (getWeek() - 7)), 0) == 1) {//getweek(현재요일)-7 = 일요일
                 //1이면 월간설정 존재 0이면 존재하지않음
                 //월간설정이 존재함//화요일검사
                 //쉐어드 불러오기 day+날짜+time1_?_i
                 cal_day7 = 1;
                 for (int i = 0; i < 100; i++) {
-                    time_body7[i] = pref.getString("day" + getDate((index-1500) * 7 - (getWeek() - 7)) + "time7_body_" + i, null);
-                    time_category7[i] = pref.getString("day" + getDate((index-1500) * 7 - (getWeek() - 7)) + "time7_category_" + i, null);
-                    time_color7[i] = pref.getInt("day" + getDate((index-1500) * 7 - (getWeek() - 7)) + "time7_color_" + i, 0);
-                    time_type7[i] = pref.getInt("day" + getDate((index-1500) * 7 - (getWeek() - 7)) + "time7_type_" + i, 1);
+                    time_body7[i] = pref.getString("day" + getDate0((index-1500) * 7 - (getWeek() - 7)) + "time_body_" + i, null);
+                    time_category7[i] = pref.getString("day" + getDate0((index-1500) * 7 - (getWeek() - 7)) + "time_category_" + i, null);
+                    time_color7[i] = pref.getInt("day" + getDate0((index-1500) * 7 - (getWeek() - 7)) + "time_color_" + i, 0);
+                    time_type7[i] = pref.getInt("day" + getDate0((index-1500) * 7 - (getWeek() - 7)) + "time_type_" + i, 1);
                 }
             } else {
                 int temp_index = 0;
@@ -1669,6 +1747,33 @@ public class frag3_week extends Fragment {
         sbDate.append(nMonth);
         //if (nDay < 10)
         //sbDate.append("0");
+        sbDate.append(".");
+        sbDate.append(nDay);
+
+
+        return sbDate.toString();
+    }
+
+    public String getDate0(int iDay) {//2020.08.11
+        Calendar temp = Calendar.getInstance();
+        StringBuffer sbDate = new StringBuffer();
+
+
+        temp.add(Calendar.DAY_OF_MONTH, iDay);
+
+
+        int nYear = temp.get(Calendar.YEAR);
+        int nMonth = temp.get(Calendar.MONTH) + 1;
+        int nDay = temp.get(Calendar.DAY_OF_MONTH);
+
+
+        sbDate.append(nYear);
+        sbDate.append(".");
+        if (nMonth < 10)
+        sbDate.append("0");
+        sbDate.append(nMonth);
+        if (nDay < 10)
+        sbDate.append("0");
         sbDate.append(".");
         sbDate.append(nDay);
 

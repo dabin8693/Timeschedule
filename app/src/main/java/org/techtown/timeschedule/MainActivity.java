@@ -1,18 +1,5 @@
 package org.techtown.timeschedule;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.appcompat.widget.Toolbar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.content.FileProvider;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -34,7 +21,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -52,11 +38,18 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.FileProvider;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.google.android.material.appbar.MaterialToolbar;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -72,6 +65,9 @@ public class MainActivity extends AppCompatActivity implements toolbar_callback 
 
     private DrawerLayout main_drawer_main;
     private View main_drawer_menu;
+    static int ON;
+    private boolean checked;
+    private Long Start_time;
     private MaterialToolbar toolbar;
     private String t_month, t_year;
     private LayoutInflater inflater, inflater_login, inflater_month;
@@ -107,7 +103,8 @@ public class MainActivity extends AppCompatActivity implements toolbar_callback 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        //ON = 1;
+        checked = false;
         emaillist = new String[100];
         passwordlist = new String[100];
 
@@ -422,16 +419,44 @@ public class MainActivity extends AppCompatActivity implements toolbar_callback 
         MenuItem switchOnOffItem = menu.findItem(R.id.switchOnOffItem);
         switchOnOffItem.setActionView(R.layout.switch_layout);
 
+        SharedPreferences pref = getSharedPreferences("pref",MainActivity.MODE_PRIVATE);
+        boolean start_switch = pref.getBoolean("switch",false);
+        checked = start_switch;
         Switch switchOnOff = switchOnOffItem.getActionView().findViewById(R.id.switchOnOff);
-        switchOnOff.setChecked(true);
+        switchOnOff.setChecked(start_switch);
+        if(start_switch == false){
+            ON = 1;
+        }else{
+            Intent intent = new Intent(MainActivity.this, ForegroundService.class);
+            startService(intent);
+        }
         switchOnOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {//스위치
+                SharedPreferences pref = getSharedPreferences("pref",MainActivity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putBoolean("switch",isChecked);
+                editor.commit();
+                checked = isChecked;
+                if(isChecked == true){
+                    Start_time = System.currentTimeMillis();
+                    editor.putLong("switch_start_time",Start_time);
+                    editor.putLong("first_switch_start_time",Start_time);
+                    editor.commit();
+                    Intent intent = new Intent(MainActivity.this, ForegroundService.class);
+                    startService(intent);
+                }else{
+                    editor.putLong("switch_save_time",0);
+                    editor.putLong("first_switch_start_time",0);
+                    editor.commit();
+                    ON = 1;
+                }
                 Log.d("체크:",Boolean.toString(isChecked));
             }
         });
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

@@ -47,7 +47,7 @@ public class week_addActivity extends AppCompatActivity {
     private ImageView circle;
     private GradientDrawable drawable;
     private int count_category, dialog_position;
-    private String day;//2020.08.11 터치한 위치 날짜
+    private String day;//2020.8.11 터치한 위치 날짜
     private String day2;//20200811 터치한 위치 날짜//수정할때 이 날짜로 해야된다//저장하기전에 먼저day3저장값을 덮어쓰고 수정해야된다.
     private int day3;//20200811 쉐어드에서 데이터를 불러온 날짜 (단:아예없으면 0이다)//저장할때 키값 날짜가 이 규격이다(주간저장만)
     private int cal_day;//1이면 월간에서 불러온거 0이면 주간에서 불러오거나 데이터가 아예 없을때

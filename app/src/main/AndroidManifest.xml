@@ -17,7 +17,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".month_expandActivity"/>
+        <activity android:name=".month_insertActivity"/>
         <activity android:name=".Day_expandActivity"/>
+        <activity android:name=".month_addActivity"/>
         <activity android:name=".Category_addActivity"></activity>
         <activity android:name=".Week_lookActivity" />
         <activity android:name=".Category_insertActivity"/>
@@ -47,6 +50,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Phone_record" />
+        <service android:name=".ForegroundService"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

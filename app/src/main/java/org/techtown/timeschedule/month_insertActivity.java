@@ -185,11 +185,21 @@ public class month_insertActivity extends AppCompatActivity {
             }else{
                 Toast.makeText(month_insertActivity.this,"시간을 다시 설정하세요.",Toast.LENGTH_SHORT).show();
             }
-        } else if (id == 16908332) {//back
+        } else if (id == 16908332) {//back16908332
             finish();
         } else if (id == 2131296337){//delect
-            delect_save();
-            finish();
+            new AlertDialog.Builder(month_insertActivity.this).setTitle("알림").setMessage("삭제하시겠습니까").setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            }).setPositiveButton("삭제", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    delect_save();
+                    finish();
+                }
+            }).show();
         }
 
         return super.onOptionsItemSelected(item);
@@ -199,6 +209,7 @@ public class month_insertActivity extends AppCompatActivity {
 
     public void restore() {
         SharedPreferences pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
+        /*
         SharedPreferences.Editor editor = pref.edit();
         for (int i = start_time; i < start_time + type; i++) {//use,타입,바디초기화 초기화 기준: 기존 설정되어있던 범위
             editor.putInt("day"+time+"time_use_" + i, 0);
@@ -209,11 +220,16 @@ public class month_insertActivity extends AppCompatActivity {
             Log.d("같은날저장초기화"+i,"ㄴㄹㄴ");
         }
         editor.commit();
+
+         */
         if (pref != null) {
 
             for (int i = 0; i < 48; i++) {
                 time_use[i] = pref.getInt("day"+time+"time_use_" + i, 0);
 
+            }
+            for(int i = start_time; i < start_time + type; i++){
+                time_use[i] = 0;
             }
             for (int i = 0; i < 100; i++) {//다이얼로그용
                 color_array[i] = pref.getInt("color_array" + i, 0);//해당시간 칸수
@@ -251,9 +267,7 @@ public class month_insertActivity extends AppCompatActivity {
 
 
     public void insert_save(){
-        SharedPreferences pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        int tp_type = choice_end_time - choice_start_time;
+        final int tp_type = choice_end_time - choice_start_time;
         int save_count = 0;
         for(int i = choice_start_time; i< choice_end_time+1; i++){
             if(time_use[i] == 1){
@@ -262,54 +276,67 @@ public class month_insertActivity extends AppCompatActivity {
         }
         Log.d("타입은세이브카운터",Integer.toString(save_count));
         if(save_count == 0){
-            for (int i = start_time; i < start_time + type; i++) {//use,타입,바디초기화 초기화 기준: 기존 설정되어있던 범위
-                editor.putInt("day"+time+"time_use_" + i, 0);
-                editor.putInt("day"+time+"time_type_" + i, 1);
-                editor.putString("day"+time+"time_body_" + i, null);
-                editor.putInt("day"+time+"time_color_" + i,0);
-                editor.putString("day"+time+"time_category_" + i,null);
-                Log.d("같은날저장초기화"+i,"ㄴㄹㄴ");
-            }
-            editor.putInt("day"+time, 1);//월간설정이 있다
-            editor.putInt("day"+time+"time_type_" + choice_start_time, tp_type + 1);//간격 설정
-            editor.putString("day"+time+"time_body_" + choice_start_time, input_body.getText().toString());//내용 넣기
-            editor.putInt("day"+time+"time_color_" + choice_start_time, color_array[dialog_position]);
-            editor.putString("day"+time+"time_category_" + choice_start_time, category_array[dialog_position]);
-            if(choice_start_time<20) {
-                if (choice_start_time % 2 == 0) {
-                    editor.putString("day" + time + "time_start_" + choice_start_time, "0" + choice_start_time/2 + ":00");
-                }else{
-                    editor.putString("day" + time + "time_start_" + choice_start_time, "0" + choice_start_time/2 + ":30");
+            new AlertDialog.Builder(month_insertActivity.this).setTitle("알림").setMessage("수정하시겠습니까").setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
                 }
-            }else{
-                if (choice_start_time % 2 == 0) {
-                    editor.putString("day" + time + "time_start_" + choice_start_time, choice_start_time/2 + ":00");
-                }else{
-                    editor.putString("day" + time + "time_start_" + choice_start_time, choice_start_time/2 + ":30");
+            }).setPositiveButton("수정", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    SharedPreferences pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    for (int i = start_time; i < start_time + type; i++) {//use,타입,바디초기화 초기화 기준: 기존 설정되어있던 범위
+                        editor.putInt("day"+time+"time_use_" + i, 0);
+                        editor.putInt("day"+time+"time_type_" + i, 1);
+                        editor.putString("day"+time+"time_body_" + i, null);
+                        editor.putInt("day"+time+"time_color_" + i,0);
+                        editor.putString("day"+time+"time_category_" + i,null);
+                        Log.d("같은날저장초기화"+i,"ㄴㄹㄴ");
+                    }
+                    editor.putInt("day"+time, 1);//월간설정이 있다
+                    editor.putInt("day"+time+"time_type_" + choice_start_time, tp_type + 1);//간격 설정
+                    editor.putString("day"+time+"time_body_" + choice_start_time, input_body.getText().toString());//내용 넣기
+                    editor.putInt("day"+time+"time_color_" + choice_start_time, color_array[dialog_position]);
+                    editor.putString("day"+time+"time_category_" + choice_start_time, category_array[dialog_position]);
+                    if(choice_start_time<20) {
+                        if (choice_start_time % 2 == 0) {
+                            editor.putString("day" + time + "time_start_" + choice_start_time, "0" + choice_start_time/2 + ":00");
+                        }else{
+                            editor.putString("day" + time + "time_start_" + choice_start_time, "0" + choice_start_time/2 + ":30");
+                        }
+                    }else{
+                        if (choice_start_time % 2 == 0) {
+                            editor.putString("day" + time + "time_start_" + choice_start_time, choice_start_time/2 + ":00");
+                        }else{
+                            editor.putString("day" + time + "time_start_" + choice_start_time, choice_start_time/2 + ":30");
+                        }
+                    }
+                    if(choice_end_time<19) {
+                        if (choice_end_time % 2 == 0) {
+                            editor.putString("day" + time + "time_end_" + choice_start_time, "0" + choice_end_time/2 + ":30");
+                        }else{
+                            editor.putString("day" + time + "time_end_" + choice_start_time, "0" + (choice_end_time/2 + 1) + ":00");
+                        }
+                    }else{
+                        if (choice_end_time % 2 == 0) {
+                            editor.putString("day" + time + "time_end_" + choice_start_time, choice_end_time/2 + ":30");
+                        }else{
+                            editor.putString("day" + time + "time_end_" + choice_start_time, (choice_end_time/2 + 1) + ":00");
+                        }
+                    }
+                    for (int i = choice_start_time; i < choice_start_time + tp_type + 1; i++) {//use초기화후 넣기//14:00 /14:30 이면 tp_type = 0이다
+                        editor.putInt("day"+time+"time_use_" + i, 1);//사용중이다
+                    }
+                    Log.d("타입은",Integer.toString(tp_type));
+                    Log.d("타입은엔드",Integer.toString(choice_end_time));
+                    Log.d("타입은스타트",Integer.toString(choice_start_time));
+                    Log.d("타입은인텐트스타트",Integer.toString(start_time));
+                    editor.commit();
+                    finish();
                 }
-            }
-            if(choice_end_time<19) {
-                if (choice_end_time % 2 == 0) {
-                    editor.putString("day" + time + "time_end_" + choice_start_time, "0" + choice_end_time/2 + ":30");
-                }else{
-                    editor.putString("day" + time + "time_end_" + choice_start_time, "0" + (choice_end_time/2 + 1) + ":00");
-                }
-            }else{
-                if (choice_end_time % 2 == 0) {
-                    editor.putString("day" + time + "time_end_" + choice_start_time, choice_end_time/2 + ":30");
-                }else{
-                    editor.putString("day" + time + "time_end_" + choice_start_time, (choice_end_time/2 + 1) + ":00");
-                }
-            }
-            for (int i = choice_start_time; i < choice_start_time + tp_type + 1; i++) {//use초기화후 넣기//14:00 /14:30 이면 tp_type = 0이다
-                editor.putInt("day"+time+"time_use_" + i, 1);//사용중이다
-            }
-            Log.d("타입은",Integer.toString(tp_type));
-            Log.d("타입은엔드",Integer.toString(choice_end_time));
-            Log.d("타입은스타트",Integer.toString(choice_start_time));
-            Log.d("타입은인텐트스타트",Integer.toString(start_time));
-            editor.commit();
-            finish();
+            }).show();
+
         }else{
             //사용중인 시간이 있습니다
             Log.d("타입은인텐트스타트",Integer.toString(start_time));

@@ -1,9 +1,6 @@
 package org.techtown.timeschedule;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.app.ProgressDialog;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,18 +8,11 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.Size;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 public class frag_week extends Fragment implements OnFragmentChangedListener {
@@ -34,6 +24,11 @@ public class frag_week extends Fragment implements OnFragmentChangedListener {
     static int PAGE_INDEX;
     private ViewPager viewPager;
     private FragmentPagerAdapter fragmentPagerAdapter;
+    private ProgressDialog progressDialog;
+
+    public frag_week(ProgressDialog progressDialog){
+        this.progressDialog = progressDialog;
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -69,7 +64,7 @@ public class frag_week extends Fragment implements OnFragmentChangedListener {
         });
         viewPager.setCurrentItem(1500);
         Log.d("loglog주간 프래그먼트 온스타트","ㅇㄴㄹ");
-
+        //progressDialog.dismiss();
         return view;
     }
 ////////////////////////////////////////////////////////////////////////////////

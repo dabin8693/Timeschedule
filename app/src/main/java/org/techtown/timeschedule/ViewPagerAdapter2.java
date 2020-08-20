@@ -10,9 +10,11 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 public class ViewPagerAdapter2 extends FragmentPagerAdapter {
     private OnFragmentChangedListener listener;
+    //private ProgressDialog progressDialog;
     public ViewPagerAdapter2(@NonNull FragmentManager fm, OnFragmentChangedListener listener) {
         super(fm);
         this.listener = listener;
+        //this.progressDialog = progressDialog;
     }
 
     @Nullable

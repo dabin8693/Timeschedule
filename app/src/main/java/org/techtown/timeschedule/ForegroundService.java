@@ -85,6 +85,26 @@ public class ForegroundService extends Service {
         //}
     }
 
+    public String format(int hour, int min, int sec) {//2020.8.11
+
+        StringBuffer sbDate = new StringBuffer();
+
+        if (hour < 10)
+            sbDate.append("0");
+        sbDate.append(hour);
+        sbDate.append(":");
+        if (min < 10)
+            sbDate.append("0");
+        sbDate.append(min);
+        sbDate.append(":");
+        if (sec < 10)
+            sbDate.append("0");
+        sbDate.append(sec);
+
+
+        return sbDate.toString();
+    }
+
     @Override
     public void onStart(Intent intent, int startId) {
         super.onStart(intent, startId);
@@ -125,7 +145,7 @@ public class ForegroundService extends Service {
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
                         .setSmallIcon(R.drawable.ic_launcher_background)
                         .setContentTitle("휴대폰 사용기록 측정중")
-                        .setContentText(hour_time+":"+min_time+":"+sec_time)
+                        .setContentText("휴대폰 사용시간:"+format(hour_time,min_time,sec_time))
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         // Set the intent that will fire when the user taps the notification
                         .setContentIntent(pendingIntent)

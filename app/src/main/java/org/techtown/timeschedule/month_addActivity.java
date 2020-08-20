@@ -203,9 +203,7 @@ public class month_addActivity extends AppCompatActivity {
     }
 
     public void save(){
-        SharedPreferences pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        int tp_type = choice_end_time - choice_start_time;
+        final int tp_type = choice_end_time - choice_start_time;
         int save_count = 0;
         for(int i = choice_start_time; i< choice_end_time+1; i++){
             if(time_use[i] == 1){
@@ -213,42 +211,55 @@ public class month_addActivity extends AppCompatActivity {
             }
         }
         if(save_count == 0){
-            editor.putInt("day"+time, 1);//월간설정이 있다
-            editor.putInt("day"+time+"time_type_" + choice_start_time, tp_type + 1);//간격 설정
-            editor.putString("day"+time+"time_body_" + choice_start_time, input_body.getText().toString());//내용 넣기
-            editor.putInt("day"+time+"time_color_" + choice_start_time, color_array[dialog_position]);
-            editor.putString("day"+time+"time_category_" + choice_start_time, category_array[dialog_position]);
-            if(choice_start_time<20) {
-                if (choice_start_time % 2 == 0) {
-                    editor.putString("day" + time + "time_start_" + choice_start_time, "0" + choice_start_time/2 + ":00");
-                }else{
-                    editor.putString("day" + time + "time_start_" + choice_start_time, "0" + choice_start_time/2 + ":30");
+            new AlertDialog.Builder(month_addActivity.this).setTitle("알림").setMessage("추가하시겠습니까").setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
                 }
-            }else{
-                if (choice_start_time % 2 == 0) {
-                    editor.putString("day" + time + "time_start_" + choice_start_time, choice_start_time/2 + ":00");
-                }else{
-                    editor.putString("day" + time + "time_start_" + choice_start_time, choice_start_time/2 + ":30");
+            }).setPositiveButton("추가", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    SharedPreferences pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putInt("day"+time, 1);//월간설정이 있다
+                    editor.putInt("day"+time+"time_type_" + choice_start_time, tp_type + 1);//간격 설정
+                    editor.putString("day"+time+"time_body_" + choice_start_time, input_body.getText().toString());//내용 넣기
+                    editor.putInt("day"+time+"time_color_" + choice_start_time, color_array[dialog_position]);
+                    editor.putString("day"+time+"time_category_" + choice_start_time, category_array[dialog_position]);
+                    if(choice_start_time<20) {
+                        if (choice_start_time % 2 == 0) {
+                            editor.putString("day" + time + "time_start_" + choice_start_time, "0" + choice_start_time/2 + ":00");
+                        }else{
+                            editor.putString("day" + time + "time_start_" + choice_start_time, "0" + choice_start_time/2 + ":30");
+                        }
+                    }else{
+                        if (choice_start_time % 2 == 0) {
+                            editor.putString("day" + time + "time_start_" + choice_start_time, choice_start_time/2 + ":00");
+                        }else{
+                            editor.putString("day" + time + "time_start_" + choice_start_time, choice_start_time/2 + ":30");
+                        }
+                    }
+                    if(choice_end_time<19) {
+                        if (choice_end_time % 2 == 0) {
+                            editor.putString("day" + time + "time_end_" + choice_start_time, "0" + choice_end_time/2 + ":30");
+                        }else{
+                            editor.putString("day" + time + "time_end_" + choice_start_time, "0" + (choice_end_time/2 + 1) + ":00");
+                        }
+                    }else{
+                        if (choice_end_time % 2 == 0) {
+                            editor.putString("day" + time + "time_end_" + choice_start_time, choice_end_time/2 + ":30");
+                        }else{
+                            editor.putString("day" + time + "time_end_" + choice_start_time, (choice_end_time/2 + 1) + ":00");
+                        }
+                    }
+                    for (int i = choice_start_time; i < choice_start_time + tp_type + 1; i++) {//use초기화후 넣기//14:00 /14:30 이면 tp_type = 0이다
+                        editor.putInt("day"+time+"time_use_" + i, 1);//사용중이다
+                    }
+                    editor.commit();
+                    finish();
                 }
-            }
-            if(choice_end_time<19) {
-                if (choice_end_time % 2 == 0) {
-                    editor.putString("day" + time + "time_end_" + choice_start_time, "0" + choice_end_time/2 + ":30");
-                }else{
-                    editor.putString("day" + time + "time_end_" + choice_start_time, "0" + (choice_end_time/2 + 1) + ":00");
-                }
-            }else{
-                if (choice_end_time % 2 == 0) {
-                    editor.putString("day" + time + "time_end_" + choice_start_time, choice_end_time/2 + ":30");
-                }else{
-                    editor.putString("day" + time + "time_end_" + choice_start_time, (choice_end_time/2 + 1) + ":00");
-                }
-            }
-            for (int i = choice_start_time; i < choice_start_time + tp_type + 1; i++) {//use초기화후 넣기//14:00 /14:30 이면 tp_type = 0이다
-                editor.putInt("day"+time+"time_use_" + i, 1);//사용중이다
-            }
-            editor.commit();
-            finish();
+            }).show();
+
         }else{
             //사용중인 시간이 있습니다
             Toast.makeText(month_addActivity.this,"중복",Toast.LENGTH_SHORT).show();

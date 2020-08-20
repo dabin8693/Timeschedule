@@ -18,7 +18,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 
 public class Phone_record extends AppCompatActivity {
     private MaterialToolbar toolbar;
-    private TextView textView, textView2;
+    private TextView textView, textView2, textView0;
     private Handler handler;
     private boolean bool;
     private BroadcastReceiver scrOnReceiver;
@@ -37,6 +37,7 @@ public class Phone_record extends AppCompatActivity {
 
         textView = findViewById(R.id.service);
         textView2 = findViewById(R.id.service2);
+        textView0 = findViewById(R.id.service0);
 
     }
 
@@ -51,6 +52,7 @@ public class Phone_record extends AppCompatActivity {
                 Long Start_time = pref.getLong("switch_start_time",0);
                 Long save_time = pref.getLong("switch_save_time",0);
                 Long First_start_time = pref.getLong("first_switch_start_time",0);
+                String First_time_t = pref.getString("first_switch_start_time_string","");
                 if(MainActivity.ON == 0) {
                     Long Now_time = System.currentTimeMillis();
                     long time = (Now_time - Start_time + save_time)/1000;
@@ -65,15 +67,17 @@ public class Phone_record extends AppCompatActivity {
                     int hour_time = int_time/3600;
                     int min_time = (int_time%3600)/60;
                     int sec_time = int_time%60;
-                    textView.setText(hour_time+":"+min_time+":"+sec_time);
+                    textView2.setText(format(hour_time,min_time,sec_time));
                     int int_time2 = (int)time2;
                     int hour_time2 = int_time2/3600;
                     int min_time2 = (int_time2%3600)/60;
                     int sec_time2 = int_time2%60;
-                    textView2.setText(hour_time2+":"+min_time2+":"+sec_time2);
+                    textView.setText(format(hour_time2,min_time2,sec_time2));
+                    textView0.setText(First_time_t);
                 }else{
-                    textView.setText("측정x");
-                    textView2.setText("측정x");
+                    textView0.setText("현재 측정중이 아닙니다");
+                    textView2.setText("현재 측정중이 아닙니다");
+                    textView.setText("현재 측정중이 아닙니다");
                 }
 
                 return false;
@@ -97,6 +101,26 @@ public class Phone_record extends AppCompatActivity {
                 }
             }
         }).start();
+    }
+
+    public String format(int hour, int min, int sec) {//2020.8.11
+
+        StringBuffer sbDate = new StringBuffer();
+
+        if (hour < 10)
+            sbDate.append("0");
+        sbDate.append(hour);
+        sbDate.append(":");
+        if (min < 10)
+        sbDate.append("0");
+        sbDate.append(min);
+        sbDate.append(":");
+        if (sec < 10)
+        sbDate.append("0");
+        sbDate.append(sec);
+
+
+        return sbDate.toString();
     }
 
     @Override

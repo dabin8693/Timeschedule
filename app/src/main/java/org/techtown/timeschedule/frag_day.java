@@ -3,14 +3,11 @@ package org.techtown.timeschedule;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -332,23 +329,50 @@ public class frag_day extends Fragment {
         });
     }
 
+    public String getDate0(int iDay) {//2020.08.11
+        Calendar temp = Calendar.getInstance();
+        StringBuffer sbDate = new StringBuffer();
+
+
+        temp.add(Calendar.DAY_OF_MONTH, iDay);
+
+
+        int nYear = temp.get(Calendar.YEAR);
+        int nMonth = temp.get(Calendar.MONTH) + 1;
+        int nDay = temp.get(Calendar.DAY_OF_MONTH);
+
+
+        sbDate.append(nYear);
+        sbDate.append(".");
+        if (nMonth < 10)
+            sbDate.append("0");
+        sbDate.append(nMonth);
+        if (nDay < 10)
+            sbDate.append("0");
+        sbDate.append(".");
+        sbDate.append(nDay);
+
+
+        return sbDate.toString();
+    }
+
     public void restore2(){
         SharedPreferences pref = getActivity().getSharedPreferences("pref", getActivity().MODE_PRIVATE);
         for (int i = 0; i < 100; i++) {
             item_add_week[i] = pref.getInt("item_add_week_" + i, 0);//1~7 없으면0
             item_add_day[i] = pref.getInt("item_add_day_" + i, 0);//20200811 없으면0
         }
-        if (pref.getInt("day" + getDate(0), 0) == 1) {//getweek(현재요일)-1 = 월요일
+        if (pref.getInt("day" + getDate0(0), 0) == 1) {//getweek(현재요일)-1 = 월요일
             //getDate가 날짜마다 더해져서 getWeek값이 유동이여도 계산이 떨어짐
             //1이면 월간설정 존재 0이면 존재하지않음
             //월간설정이 존재함//월요일검사
             //쉐어드 불러오기 day+날짜+time1_?_i
             cal_day = 1;
             for (int i = 0; i < 100; i++) {
-                body[i] = pref.getString("day" + getDate(0) + "time"+getWeek_int()+"_body_" + i, null);
-                time_category[i] = pref.getString("day" + getDate(0) + "time"+getWeek_int()+"_category_" + i, null);
-                time_color[i] = pref.getInt("day" + getDate(0) + "time"+getWeek_int()+"_color_" + i, 0);
-                time_type[i] = pref.getInt("day" + getDate(0) + "time"+getWeek_int()+"_type_" + i, 1);
+                body[i] = pref.getString("day" + getDate0(0) + "time_body_" + i, null);
+                time_category[i] = pref.getString("day" + getDate0(0) + "time_category_" + i, null);
+                time_color[i] = pref.getInt("day" + getDate0(0) + "time_color_" + i, 0);
+                time_type[i] = pref.getInt("day" + getDate0(0) + "time_type_" + i, 1);
             }
         } else {
             int temp_index = 0;

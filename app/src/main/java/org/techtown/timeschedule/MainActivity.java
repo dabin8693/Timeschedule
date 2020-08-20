@@ -3,6 +3,7 @@ package org.techtown.timeschedule;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -97,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements toolbar_callback 
     private int bitmap_reset;
     static int width_size_main;
     private int color_check;
+    private ProgressDialog progressDialog;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -294,6 +296,10 @@ public class MainActivity extends AppCompatActivity implements toolbar_callback 
         side_week.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //progressDialog = new ProgressDialog(MainActivity.this);
+                //progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                //progressDialog.setMessage("잠시 기다려 주세요.");
+                //progressDialog.show();
                 title_text_v.setVisibility(View.INVISIBLE);
                 title_text_v2.setVisibility(View.VISIBLE);
                 title2.setText("주간시간표");
@@ -305,7 +311,7 @@ public class MainActivity extends AppCompatActivity implements toolbar_callback 
                 side_category.setTextColor(Color.parseColor("#60000000"));
                 getSupportActionBar().setCustomView(title_text_v2);//가려진 타이틀에 커스텀뷰(제목) 장착
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                frag_week = new frag_week();
+                frag_week = new frag_week(progressDialog);
                 transaction.replace(R.id.main_frame, frag_week);
                 //transaction.addToBackStack(null);//백버튼 눌렀을때
                 transaction.commit();
@@ -440,12 +446,17 @@ public class MainActivity extends AppCompatActivity implements toolbar_callback 
                 checked = isChecked;
                 if(isChecked == true){
                     Start_time = System.currentTimeMillis();
+                    Date date = new Date(Start_time);
+                    SimpleDateFormat sdfNow = new SimpleDateFormat("HH:mm:ss");
+                    String formatDate = sdfNow.format(date);
+                    editor.putString("first_switch_start_time_string",formatDate);
                     editor.putLong("switch_start_time",Start_time);
                     editor.putLong("first_switch_start_time",Start_time);
                     editor.commit();
                     Intent intent = new Intent(MainActivity.this, ForegroundService.class);
                     startService(intent);
                 }else{
+                    editor.putString("first_switch_start_time_string",null);
                     editor.putLong("switch_save_time",0);
                     editor.putLong("first_switch_start_time",0);
                     editor.commit();
@@ -848,6 +859,7 @@ public class MainActivity extends AppCompatActivity implements toolbar_callback 
         super.onRestart();
 
     }
+
 
     public void reset(){
         SharedPreferences pref = getSharedPreferences("pref",MainActivity.MODE_PRIVATE);

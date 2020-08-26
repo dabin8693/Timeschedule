@@ -452,8 +452,8 @@ public class MainActivity extends AppCompatActivity implements toolbar_callback 
         });
         //네비게이션바 뷰 코드 종료
         ////////////////////////////////////////
-        color_check = 0;
-        if(color_check == 0){
+        //color_check = 0;
+        if(start_position == 1){
             side_month.setTextColor(Color.parseColor("#FF000000"));
             side_phone.setTextColor(Color.parseColor("#60000000"));
             side_day.setTextColor(Color.parseColor("#60000000"));
@@ -461,7 +461,7 @@ public class MainActivity extends AppCompatActivity implements toolbar_callback 
             side_category.setTextColor(Color.parseColor("#60000000"));
             side_stats.setTextColor(Color.parseColor("#60000000"));
             side_dayandphone.setTextColor(Color.parseColor("#60000000"));
-        }else if(color_check == 1){
+        }else if(start_position == 2){
             side_week.setTextColor(Color.parseColor("#FF000000"));
             side_phone.setTextColor(Color.parseColor("#60000000"));
             side_day.setTextColor(Color.parseColor("#60000000"));
@@ -469,7 +469,7 @@ public class MainActivity extends AppCompatActivity implements toolbar_callback 
             side_category.setTextColor(Color.parseColor("#60000000"));
             side_stats.setTextColor(Color.parseColor("#60000000"));
             side_dayandphone.setTextColor(Color.parseColor("#60000000"));
-        }else if(color_check == 2){
+        }else if(start_position == 3){
             side_day.setTextColor(Color.parseColor("#FF000000"));
             side_phone.setTextColor(Color.parseColor("#60000000"));
             side_week.setTextColor(Color.parseColor("#60000000"));
@@ -744,6 +744,7 @@ public class MainActivity extends AppCompatActivity implements toolbar_callback 
 
             }
         }
+        /*
         if(color_check == 0){
             side_month.setTextColor(Color.parseColor("#FF000000"));
             side_phone.setTextColor(Color.parseColor("#60000000"));
@@ -775,6 +776,8 @@ public class MainActivity extends AppCompatActivity implements toolbar_callback 
             side_month.setTextColor(Color.parseColor("#60000000"));
             side_category.setTextColor(Color.parseColor("#60000000"));
         }
+
+         */
     }
 
     @Override

@@ -66,14 +66,14 @@ public class MainActivity extends AppCompatActivity implements toolbar_callback 
 
     private DrawerLayout main_drawer_main;
     private View main_drawer_menu;
-    static int ON;
+    //static int ON;
     private boolean checked;
     private Long Start_time;
     private MaterialToolbar toolbar;
     private String t_month, t_year;
     private LayoutInflater inflater, inflater_login, inflater_month;
     private View title_text_v, month_v, title_text_v2;
-    private TextView title, side_month, side_week, side_day, title2, side_phone, side_category;
+    private TextView title, side_month, side_week, side_day, title2, side_phone, side_category, side_stats, side_dayandphone;
     private CalendarView calendarView;
     private LinearLayout container, main_linear;
     private ImageView setting, my;
@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements toolbar_callback 
     private int bitmap_reset;
     static int width_size_main;
     private int color_check;
+    private int start_position;
     private ProgressDialog progressDialog;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -123,6 +124,9 @@ public class MainActivity extends AppCompatActivity implements toolbar_callback 
         display.getRealSize(size);
         width_size_main = size.x;
 
+        SharedPreferences pref = getSharedPreferences("pref",MainActivity.MODE_PRIVATE);
+        start_position = pref.getInt("start_position",1);
+
         //reset();
 /*
         SharedPreferences pref = getSharedPreferences("pref",MainActivity.MODE_PRIVATE);
@@ -134,9 +138,18 @@ public class MainActivity extends AppCompatActivity implements toolbar_callback 
         //첫화면 월간 달력 프래그먼트
         //프래그먼트 뷰 수정시 inflate하고 해야됨
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        frag_month = new frag_month(this);
-        transaction.replace(R.id.main_frame, frag_month);
-        //transaction.addToBackStack(null);//백버튼 눌렀을때
+        if(start_position == 1) {
+            frag_month = new frag_month(this);
+            transaction.replace(R.id.main_frame, frag_month);
+            //transaction.addToBackStack(null);//백버튼 눌렀을때
+        }else if(start_position == 2){
+            frag_week = new frag_week(progressDialog);
+            transaction.replace(R.id.main_frame, frag_week);
+            //transaction.addToBackStack(null);//백버튼 눌렀을때
+        }else if(start_position == 3){
+            frag_day = new frag_day();
+            transaction.replace(R.id.main_frame, frag_day);
+        }
         transaction.commit();
         ///////////////////////////////////////
         //툴바 코드 시작
@@ -270,6 +283,8 @@ public class MainActivity extends AppCompatActivity implements toolbar_callback 
                 side_day.setTextColor(Color.parseColor("#60000000"));
                 side_week.setTextColor(Color.parseColor("#60000000"));
                 side_category.setTextColor(Color.parseColor("#60000000"));
+                side_stats.setTextColor(Color.parseColor("#60000000"));
+                side_dayandphone.setTextColor(Color.parseColor("#60000000"));
                 color_check = 0;
                 Date currentTime = Calendar.getInstance().getTime();
                 SimpleDateFormat monthFormat = new SimpleDateFormat("MM", Locale.getDefault());
@@ -309,6 +324,8 @@ public class MainActivity extends AppCompatActivity implements toolbar_callback 
                 side_day.setTextColor(Color.parseColor("#60000000"));
                 side_month.setTextColor(Color.parseColor("#60000000"));
                 side_category.setTextColor(Color.parseColor("#60000000"));
+                side_stats.setTextColor(Color.parseColor("#60000000"));
+                side_dayandphone.setTextColor(Color.parseColor("#60000000"));
                 getSupportActionBar().setCustomView(title_text_v2);//가려진 타이틀에 커스텀뷰(제목) 장착
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 frag_week = new frag_week(progressDialog);
@@ -324,13 +341,15 @@ public class MainActivity extends AppCompatActivity implements toolbar_callback 
             public void onClick(View v) {
                 title_text_v.setVisibility(View.INVISIBLE);
                 title_text_v2.setVisibility(View.VISIBLE);
-                title2.setText("일간시간표");
+                title2.setText("오늘시간표");
                 color_check = 2;
                 side_day.setTextColor(Color.parseColor("#FF000000"));
                 side_phone.setTextColor(Color.parseColor("#60000000"));
                 side_week.setTextColor(Color.parseColor("#60000000"));
                 side_month.setTextColor(Color.parseColor("#60000000"));
                 side_category.setTextColor(Color.parseColor("#60000000"));
+                side_stats.setTextColor(Color.parseColor("#60000000"));
+                side_dayandphone.setTextColor(Color.parseColor("#60000000"));
                 getSupportActionBar().setCustomView(title_text_v2);//가려진 타이틀에 커스텀뷰(제목) 장착
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 frag_day = new frag_day();
@@ -358,11 +377,17 @@ public class MainActivity extends AppCompatActivity implements toolbar_callback 
         side_category.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
                 color_check = 3;
                 side_category.setTextColor(Color.parseColor("#FF000000"));
                 side_day.setTextColor(Color.parseColor("#60000000"));
                 side_week.setTextColor(Color.parseColor("#60000000"));
                 side_phone.setTextColor(Color.parseColor("#60000000"));
+                side_stats.setTextColor(Color.parseColor("#60000000"));
+                side_month.setTextColor(Color.parseColor("#60000000"));
+                side_dayandphone.setTextColor(Color.parseColor("#60000000"));
+
+                 */
                 Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
                 startActivity(intent);
             }
@@ -371,12 +396,57 @@ public class MainActivity extends AppCompatActivity implements toolbar_callback 
         side_phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
                 color_check = 4;
                 side_phone.setTextColor(Color.parseColor("#FF000000"));
                 side_day.setTextColor(Color.parseColor("#60000000"));
                 side_week.setTextColor(Color.parseColor("#60000000"));
                 side_category.setTextColor(Color.parseColor("#60000000"));
+                side_stats.setTextColor(Color.parseColor("#60000000"));
+                side_month.setTextColor(Color.parseColor("#60000000"));
+                side_dayandphone.setTextColor(Color.parseColor("#60000000"));
+
+                 */
                 Intent intent = new Intent(MainActivity.this, Phone_record.class);
+                startActivity(intent);
+
+            }
+        });
+        side_stats = findViewById(R.id.side_stats);
+        side_stats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*
+                color_check = 5;
+                side_stats.setTextColor(Color.parseColor("#FF000000"));
+                side_phone.setTextColor(Color.parseColor("#60000000"));
+                side_day.setTextColor(Color.parseColor("#60000000"));
+                side_week.setTextColor(Color.parseColor("#60000000"));
+                side_category.setTextColor(Color.parseColor("#60000000"));
+                side_month.setTextColor(Color.parseColor("#60000000"));
+                side_dayandphone.setTextColor(Color.parseColor("#60000000"));
+
+                 */
+                Intent intent = new Intent(MainActivity.this, Stat_category.class);
+                startActivity(intent);
+            }
+        });
+        side_dayandphone = findViewById(R.id.side_dayandphone);
+        side_dayandphone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*
+                color_check = 6;
+                side_dayandphone.setTextColor(Color.parseColor("#FF000000"));
+                side_phone.setTextColor(Color.parseColor("#60000000"));
+                side_day.setTextColor(Color.parseColor("#60000000"));
+                side_week.setTextColor(Color.parseColor("#60000000"));
+                side_category.setTextColor(Color.parseColor("#60000000"));
+                side_month.setTextColor(Color.parseColor("#60000000"));
+                side_stats.setTextColor(Color.parseColor("#60000000"));
+
+                 */
+                Intent intent = new Intent(MainActivity.this, day_and_phoneActivity.class);
                 startActivity(intent);
             }
         });
@@ -389,33 +459,77 @@ public class MainActivity extends AppCompatActivity implements toolbar_callback 
             side_day.setTextColor(Color.parseColor("#60000000"));
             side_week.setTextColor(Color.parseColor("#60000000"));
             side_category.setTextColor(Color.parseColor("#60000000"));
+            side_stats.setTextColor(Color.parseColor("#60000000"));
+            side_dayandphone.setTextColor(Color.parseColor("#60000000"));
         }else if(color_check == 1){
             side_week.setTextColor(Color.parseColor("#FF000000"));
             side_phone.setTextColor(Color.parseColor("#60000000"));
             side_day.setTextColor(Color.parseColor("#60000000"));
             side_month.setTextColor(Color.parseColor("#60000000"));
             side_category.setTextColor(Color.parseColor("#60000000"));
+            side_stats.setTextColor(Color.parseColor("#60000000"));
+            side_dayandphone.setTextColor(Color.parseColor("#60000000"));
         }else if(color_check == 2){
             side_day.setTextColor(Color.parseColor("#FF000000"));
             side_phone.setTextColor(Color.parseColor("#60000000"));
             side_week.setTextColor(Color.parseColor("#60000000"));
             side_month.setTextColor(Color.parseColor("#60000000"));
             side_category.setTextColor(Color.parseColor("#60000000"));
+            side_stats.setTextColor(Color.parseColor("#60000000"));
+            side_dayandphone.setTextColor(Color.parseColor("#60000000"));
         }else if(color_check == 3){
+            /*
             side_category.setTextColor(Color.parseColor("#FF000000"));
             side_week.setTextColor(Color.parseColor("#60000000"));
             side_day.setTextColor(Color.parseColor("#60000000"));
             side_month.setTextColor(Color.parseColor("#60000000"));
             side_phone.setTextColor(Color.parseColor("#60000000"));
+            side_stats.setTextColor(Color.parseColor("#60000000"));
+            side_dayandphone.setTextColor(Color.parseColor("#60000000"));
+
+             */
         }else if(color_check == 4){
+            /*
             side_phone.setTextColor(Color.parseColor("#FF000000"));
             side_week.setTextColor(Color.parseColor("#60000000"));
             side_day.setTextColor(Color.parseColor("#60000000"));
             side_month.setTextColor(Color.parseColor("#60000000"));
             side_category.setTextColor(Color.parseColor("#60000000"));
+            side_stats.setTextColor(Color.parseColor("#60000000"));
+            side_dayandphone.setTextColor(Color.parseColor("#60000000"));
+
+             */
+        }else if(color_check == 5){
+            /*
+            side_stats.setTextColor(Color.parseColor("#FF000000"));
+            side_phone.setTextColor(Color.parseColor("#60000000"));
+            side_day.setTextColor(Color.parseColor("#60000000"));
+            side_week.setTextColor(Color.parseColor("#60000000"));
+            side_category.setTextColor(Color.parseColor("#60000000"));
+            side_month.setTextColor(Color.parseColor("#60000000"));
+            side_dayandphone.setTextColor(Color.parseColor("#60000000"));
+
+             */
+        }else if(color_check == 6){
+            /*
+            side_dayandphone.setTextColor(Color.parseColor("#FF000000"));
+            side_phone.setTextColor(Color.parseColor("#60000000"));
+            side_day.setTextColor(Color.parseColor("#60000000"));
+            side_week.setTextColor(Color.parseColor("#60000000"));
+            side_category.setTextColor(Color.parseColor("#60000000"));
+            side_month.setTextColor(Color.parseColor("#60000000"));
+            side_stats.setTextColor(Color.parseColor("#60000000"));
+
+             */
+        }
+
+        for(int i = 0; i<24; i++){
+            int time_count = pref.getInt("day2020.08.25"+"time_usephone_"+i,0);
+            Log.d("타임조사"+i,Integer.toString(time_count));
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //툴바 메뉴 inflate
@@ -431,12 +545,13 @@ public class MainActivity extends AppCompatActivity implements toolbar_callback 
         Switch switchOnOff = switchOnOffItem.getActionView().findViewById(R.id.switchOnOff);
         switchOnOff.setChecked(start_switch);
         if(start_switch == false){
-            ON = 1;
+
         }else{
             Intent intent = new Intent(MainActivity.this, ForegroundService.class);
-            startService(intent);
+            startForegroundService(intent);
         }
         switchOnOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {//스위치
                 SharedPreferences pref = getSharedPreferences("pref",MainActivity.MODE_PRIVATE);
@@ -454,13 +569,16 @@ public class MainActivity extends AppCompatActivity implements toolbar_callback 
                     editor.putLong("first_switch_start_time",Start_time);
                     editor.commit();
                     Intent intent = new Intent(MainActivity.this, ForegroundService.class);
-                    startService(intent);
+                    //startService(intent);
+                    startForegroundService(intent);
                 }else{
                     editor.putString("first_switch_start_time_string",null);
                     editor.putLong("switch_save_time",0);
                     editor.putLong("first_switch_start_time",0);
                     editor.commit();
-                    ON = 1;
+                    Intent intent = new Intent(MainActivity.this, ForegroundService.class);
+                    stopService(intent);
+                    //ON = 1;
                 }
                 Log.d("체크:",Boolean.toString(isChecked));
             }

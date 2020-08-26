@@ -30,11 +30,18 @@
                         android:textSize="20sp"
                         android:text="2020.08.06 목"></TextView>
                     <TextView
+                        android:layout_toLeftOf="@+id/weatherimage"
+                        android:id="@+id/weathertemp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
                         android:textSize="20sp"
                         android:text="날씨"></TextView>
+                    <ImageView
+                        android:id="@+id/weatherimage"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentRight="true"
+                        ></ImageView>
                 </RelativeLayout>
                 <ScrollView
                     android:layout_width="match_parent"

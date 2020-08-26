@@ -31,29 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:orientation="vertical">
-        <LinearLayout
-            android:background="@color/cardview_light_background"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <RelativeLayout
-            android:layout_margin="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="도움말 켜기">
 
-           </TextView>
-            <Switch
-                android:id="@+id/setting_switch"
-                android:checked="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"></Switch>
-        </RelativeLayout>
-        </LinearLayout>
         <LinearLayout
             android:layout_marginTop="10dp"
             android:background="@color/cardview_light_background"
@@ -122,33 +100,7 @@
             </RadioGroup>
         </RelativeLayout>
         </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:background="@color/cardview_light_background"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RelativeLayout
-                android:layout_margin="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_centerVertical="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="데이터 백업하기">
 
-                </TextView>
-                <ImageView
-                    android:id="@+id/setting_backup"
-                    android:layout_alignParentRight="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/baseline_chevron_right_black_18dp">
-
-                </ImageView>
-            </RelativeLayout>
-        </LinearLayout>
         <LinearLayout
             android:orientation="vertical"
             android:id="@+id/setting_container"

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,9 +27,12 @@ public class frag_day extends Fragment {
     private LinearLayoutManager layoutManager;
     private int[] time_type, time_color;
     private String[] time_category, body;
-    private TextView day_t;
+    private TextView day_t, month_weather_temp;
+    private ImageView month_weather;
     private int[] item_add_day, item_add_week;
     private int cal_day, cal_week;//cal_day:쉐어드 불러온 날짜//cal_week = 1이면 월간에서 불러옴
+    private String today_icon;
+    private int today_temp;
 
     public frag_day(){
 
@@ -52,6 +56,8 @@ public class frag_day extends Fragment {
         day_recycle_morning = view.findViewById(R.id.day_moring_recycle);
         day_recycle_after = view.findViewById(R.id.day_afternoon_recycle);
         day_t = view.findViewById(R.id.day_day);
+        month_weather = view.findViewById(R.id.weatherimage);
+        month_weather_temp = view.findViewById(R.id.weathertemp);
         return view;
     }
 
@@ -327,6 +333,24 @@ public class frag_day extends Fragment {
                 }
             }
         });
+
+        SharedPreferences pref = getActivity().getSharedPreferences("pref",MainActivity.MODE_PRIVATE);
+        today_icon = pref.getString("weather"+getDate0(0),null);
+        today_temp = pref.getInt("weathertemp"+getDate0(0),100);
+        Log.d("불러온값",pref.getString("weather"+getDate0(0),""));
+        if(today_icon != null){
+            int lid = this.getResources().getIdentifier(today_icon,"drawable",getActivity().getPackageName());
+            month_weather.setImageResource(lid);
+        }else{
+            Log.d("널임","ㅇㅇ");
+        }
+        if(today_temp != 100){
+            month_weather_temp.setText(Integer.toString(today_temp)+"°");
+        }else{
+            month_weather_temp.setText("");
+            Log.d("널임1","ㅇㅇ");
+        }
+
     }
 
     public String getDate0(int iDay) {//2020.08.11

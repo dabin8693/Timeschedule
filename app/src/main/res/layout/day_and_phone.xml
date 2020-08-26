@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/appbar2"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/cardview_light_background"
+                app:title="시간표 및 휴대폰사용량"
+                >
+
+            </com.google.android.material.appbar.MaterialToolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/dayday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="날짜"></TextView>
+            <Button
+                android:id="@+id/findfind"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:padding="1dp"
+                android:text="날짜 변경하기">
+
+            </Button>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <TextView
+            android:gravity="center"
+            android:layout_width="150px"
+            android:layout_height="wrap_content"
+            android:text="시간"
+            android:textSize="20sp">
+
+        </TextView>
+            <TextView
+                android:gravity="center"
+                android:layout_width="435px"
+                android:layout_height="wrap_content"
+                android:text="시간표"
+                android:textSize="20sp">
+
+            </TextView>
+            <TextView
+                android:gravity="center"
+                android:layout_width="435px"
+                android:layout_height="wrap_content"
+                android:text="휴대폰사용량"
+                android:textSize="20sp">
+
+            </TextView>
+        </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/timetime_recycle"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_toRightOf="@id/timetime_recycle"
+        android:id="@+id/dayday_recycle"
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content">
+
+    </androidx.recyclerview.widget.RecyclerView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/phonephone_recycle"
+        android:layout_toRightOf="@+id/dayday_recycle"
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content">
+
+    </androidx.recyclerview.widget.RecyclerView>
+    </RelativeLayout>
+    </ScrollView>
+    </LinearLayout>
+</LinearLayout>

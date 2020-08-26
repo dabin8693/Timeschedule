@@ -47,21 +47,21 @@ public class Phone_record extends AppCompatActivity {
         handler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message msg) {
-                Log.d("핸들러메세지","ㅇㅇ");
+                ///log.d("핸들러메세지","ㅇㅇ");
                 SharedPreferences pref = getSharedPreferences("pref",MainActivity.MODE_PRIVATE);
                 Long Start_time = pref.getLong("switch_start_time",0);
                 Long save_time = pref.getLong("switch_save_time",0);
                 Long First_start_time = pref.getLong("first_switch_start_time",0);
                 String First_time_t = pref.getString("first_switch_start_time_string","");
-                if(MainActivity.ON == 0) {
+                if(pref.getBoolean("switch",false) == true) {
                     Long Now_time = System.currentTimeMillis();
                     long time = (Now_time - Start_time + save_time)/1000;
                     long time2 = (Now_time - First_start_time)/1000;
-                    Log.d("나우타임",Long.toString(Now_time));
-                    Log.d("스타트타임",Long.toString(Start_time));
-                    Log.d("세이브타임",Long.toString(save_time));
-                    Log.d("냐우타임-스타트",Long.toString(Now_time-Start_time));
-                    Log.d("냐우타임-스타트+세이브",Long.toString(Now_time-Start_time+save_time));
+                    //Log.d("나우타임",Long.toString(Now_time));
+                    //Log.d("스타트타임",Long.toString(Start_time));
+                    //Log.d("세이브타임",Long.toString(save_time));
+                    //Log.d("냐우타임-스타트",Long.toString(Now_time-Start_time));
+                    //Log.d("냐우타임-스타트+세이브",Long.toString(Now_time-Start_time+save_time));
 
                     int int_time = (int)time;
                     int hour_time = int_time/3600;
@@ -88,13 +88,14 @@ public class Phone_record extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                SharedPreferences pref = getSharedPreferences("pref",MainActivity.MODE_PRIVATE);
                 while (bool) {
-                    if(MainActivity.ON == 1){
+                    if(pref.getBoolean("switch",false) == false){
                         bool = false;
                     }
                     handler.sendEmptyMessage(0);
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

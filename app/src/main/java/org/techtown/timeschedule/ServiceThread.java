@@ -42,6 +42,7 @@ public class ServiceThread extends Thread {
                         restart_time = System.currentTimeMillis();
                         editor.putLong("switch_start_time", restart_time);
                         editor.putInt("oncount",1);
+                        editor.putInt("screen",1);
                         editor.commit();
                         Log.d("리시버e", "SCREEN ON");
                     }
@@ -69,6 +70,7 @@ public class ServiceThread extends Thread {
                         Log.d("ㅈㅈbefore타임", Long.toString(before_time));
                         editor.putLong("switch_save_time", time);
                         editor.putInt("offcount",1);
+                        editor.putInt("screen",0);
                         editor.commit();
                         Log.d("리시버e", "SCREEN OFF");
                     }

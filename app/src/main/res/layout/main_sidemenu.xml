@@ -42,7 +42,7 @@
         <TextView
             android:id="@+id/side_month"
             android:gravity="center"
-            android:textSize="25sp"
+            android:textSize="22sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="월간시간표">
@@ -56,7 +56,7 @@
         <TextView
             android:id="@+id/side_week"
             android:gravity="center"
-            android:textSize="25sp"
+            android:textSize="22sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="주간시간표">
@@ -70,10 +70,24 @@
         <TextView
             android:id="@+id/side_day"
             android:gravity="center"
-            android:textSize="25sp"
+            android:textSize="22sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="일간시간표">
+            android:text="오늘시간표">
+
+        </TextView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp">
+        <TextView
+            android:id="@+id/side_dayandphone"
+            android:gravity="center"
+            android:textSize="22sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="시간표 및 휴대폰사용량">
 
         </TextView>
     </LinearLayout>
@@ -84,7 +98,7 @@
         <TextView
             android:id="@+id/side_category"
             android:gravity="center"
-            android:textSize="25sp"
+            android:textSize="22sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="카테고리 추가">
@@ -98,10 +112,10 @@
         <TextView
             android:id="@+id/side_stats"
             android:gravity="center"
-            android:textSize="25sp"
+            android:textSize="22sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="휴대폰사용기록 통계">
+            android:text="카테고리별 휴대폰기록 통계">
 
         </TextView>
     </LinearLayout>
@@ -112,7 +126,7 @@
         <TextView
             android:id="@+id/side_phone"
             android:gravity="center"
-            android:textSize="25sp"
+            android:textSize="22sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="휴대폰사용기록">
